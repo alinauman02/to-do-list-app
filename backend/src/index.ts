@@ -1,6 +1,8 @@
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 
+import { todosRouter } from './resources/todos';
+
 const PORT = 3001;
 
 const app = express();
@@ -20,6 +22,8 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     error: error.message,
   });
 });
+
+app.use('/todos', todosRouter);
 
 app.listen(PORT, () => {
   console.info(`Server running on port ${PORT}`);
