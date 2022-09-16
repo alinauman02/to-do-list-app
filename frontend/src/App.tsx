@@ -1,4 +1,4 @@
-import React from "react";
+import "./App.css";
 
 import "./App.css";
 import Input from "./components/Input";
@@ -12,8 +12,8 @@ function App() {
   return (
     <div className="App">
       <div className="card">
-      <Input /> <button id="bt">Post</button>
-      <TodoList todos={todos} />
+        <Input /> <button id="bt">Post</button>
+        <TodoList todos={todos} />
       </div>
     </div>
   );
