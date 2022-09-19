@@ -14,9 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(logger);
 
-app.use(errorHandler);
-
 app.use('/todos', todosRouter);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.info(`Server running on port ${PORT}`);
