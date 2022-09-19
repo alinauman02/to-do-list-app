@@ -15,17 +15,20 @@ export default function Input({
   placeholder,
   onChange,
 }: InputProps) {
-  const [Value, setValue] = useState<string>(value);
+  const [currentValue, setCurrentValue] = useState<string>(value);
+
+  const valueChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setCurrentValue(event.target.value);
+    onChange(event);
+  };
+
   return (
     <input
-      value={Value}
+      value={currentValue}
       name={name}
       type={type}
       placeholder={placeholder}
-      onChange={(e) => {
-        setValue(e.target.value);
-        onChange(e);
-      }}
+      onChange={valueChangeHandler}
     />
   );
 }
