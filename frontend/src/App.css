@@ -33,11 +33,11 @@ ul {
 button {
   border-radius: 10%;
   padding: 3% 8%;
-  background-color: #24a0ed;
+  background-color: blue;
   border-color: gray;
 }
 button:hover {
-  background-color: blue;
+  background-color: #24a0ed;
 }
 .list-item {
   background-color: white;
