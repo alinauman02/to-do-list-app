@@ -6,29 +6,45 @@ import TodoList from "./components/TodoList";
 import { Todo } from "./models/todo.model";
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([
-    { description: "Hello world", id: "244454", isDone: false },
-    { description: "Hello Pakistan", id: "24454", isDone: false },
-    { description: "Hello GB", id: "24433", isDone: false },
-  ]);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
-  let value: string = "";
+  const [todo, setTodo] = useState({ description: "", id: "", isDone: false });
+
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
+    setTodo({ description: event.target.value, id: "", isDone: false });
   };
-
+  const addTask = () => {
+    fetch("http://localhost:3001/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ description: todo.description }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        let newtodos: Todo[] = [...todos, data];
+        setTodos(newtodos);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
   return (
     <div className="App">
       <div className=" card">
         <div className="flex-container">
           <Input
             onChange={onChange}
-            value={value}
+            value={todo.description}
             placeholder="ENTER TASK"
             type="text"
             name="todo"
           />
-          <button className="inline-block add-button button">Add</button>
+          <button className="inline-block add-button button" onClick={addTask}>
+            Add
+          </button>
         </div>
 
         <TodoList todos={todos} />
