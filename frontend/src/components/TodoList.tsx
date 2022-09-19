@@ -8,9 +8,7 @@ export default function TodoList(props: any) {
     <div>
       <ul>
         {props.todos.map((todo: Todo) => (
-          <li key={todo.id}>
-            <TodoListItem todo={todo} />
-          </li>
+          <TodoListItem key={todo.id} todo={todo} />
         ))}
       </ul>
     </div>
