@@ -3,9 +3,8 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-#bt {
-  display: inline-block;
+body {
+  background-color: blue;
 }
 .App {
   display: flex;
@@ -14,26 +13,57 @@
   margin: 5%;
 }
 .card {
-  padding: 15%;
-  background-color: aqua;
+  padding: 2% 3%;
+  width: 30%;
+  background-color: white;
+  border-radius: 5%;
 }
-td {
-  text-align: left;
-}
-table td {
-  width: 100%;
-  border: black;
-}
-table {
-  margin-top: 100px;
-}
-button {
-  background-color: blue;
-
-  border-radius: 10px;
-  color: white;
-  display: inline-block;
+input:hover {
+  border-color: #24a0ed;
 }
 input {
+  width: 100%;
+  padding: 3%;
+  margin: 1%;
+}
+ul {
+  margin-top: 20%;
+  list-style-type: none;
+}
+button {
+  border-radius: 10%;
+  padding: 3% 8%;
+  background-color: #24a0ed;
+  border-color: gray;
+}
+button:hover {
+  background-color: blue;
+}
+.list-item {
+  background-color: white;
+  padding: 2% 3%;
+  margin: 2%;
+  border-radius: 15px;
+  border: groove;
+
+  background-color: lightblue;
+}
+.list-item-p {
+  width: 200%;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inline-block {
   display: inline-block;
+}
+.del-icon {
+  width: 70%;
+  height: 70%;
+}
+.button-icon {
+  padding: 2%;
 }
