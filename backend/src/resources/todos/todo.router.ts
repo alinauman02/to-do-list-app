@@ -11,13 +11,13 @@ todosRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
 });
 
 todosRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
-  const Itodo: Todo = {
+  const todo: Todo = {
     id: Math.random().toString(36).substring(2, 7),
     description: req.body.description,
     isDone: false,
   };
-  todos.push(Itodo);
-  res.json(Itodo);
+  todos.push(todo);
+  res.json(todo);
 });
 
 export { todosRouter };
