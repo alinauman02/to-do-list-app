@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background-color: blue;
+  background-color: #066acd;
 }
 .App {
   display: flex;
@@ -30,23 +30,25 @@ ul {
   margin-top: 20%;
   list-style-type: none;
 }
-button {
+.button {
   border-radius: 10%;
-  padding: 3% 8%;
-  background-color: blue;
-  border-color: gray;
+  color: white;
 }
-button:hover {
+.add-button {
+  padding: 3% 8%;
+  background-color: #0d75ec;
+  border-color: gray;
+  font-weight: bold;
+}
+.add-button:hover {
   background-color: #24a0ed;
 }
 .list-item {
-  background-color: white;
   padding: 2% 3%;
   margin: 2%;
-  border-radius: 15px;
-  border: groove;
-
-  background-color: lightblue;
+  border-radius: 6px;
+  border: 1px solid #939697;
+  background-color: #c5e1e6;
 }
 .list-item-p {
   width: 200%;
@@ -64,6 +66,7 @@ button:hover {
   width: 70%;
   height: 70%;
 }
-.button-icon {
+.delete-button {
   padding: 2%;
+  background-color: #0a2ea4;
 }
