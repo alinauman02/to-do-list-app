@@ -4,16 +4,15 @@ import { Todo } from "../models/todo.model";
 import TodoListItem from "./TodoListItem";
 
 export default function TodoList(props: any) {
-  console.log(props.todos);
   return (
     <div>
-      <table>
+      <ul>
         {props.todos.map((todo: Todo) => (
-          <tr>
+          <li key={todo.id}>
             <TodoListItem todo={todo} />
-          </tr>
+          </li>
         ))}
-      </table>
+      </ul>
     </div>
   );
 }
