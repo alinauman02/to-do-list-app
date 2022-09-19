@@ -7,24 +7,15 @@ import { Todo } from "./models/todo.model";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([
-    { description: "Hello world", id: "244454", isDone: true },
-    { description: "Hello Pakistan", id: "24454", isDone: true },
-    { description: "Hello GB", id: "24433", isDone: true },
+    { description: "Hello world", id: "244454", isDone: false },
+    { description: "Hello Pakistan", id: "24454", isDone: false },
+    { description: "Hello GB", id: "24433", isDone: false },
   ]);
 
-  let newtodos: Todo[];
-
   let value: string = "";
-  const onChange = function (e: React.ChangeEvent<any>) {
-    newtodos = [
-      ...todos,
-      { description: e.target.value, id: "24445124", isDone: true },
-    ];
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
   };
-
-  function postTask(): void {
-    setTodos(newtodos);
-  }
 
   return (
     <div className="App">
@@ -37,9 +28,7 @@ function App() {
             type="text"
             name="todo"
           />
-          <button className="inline-block" onClick={postTask}>
-            Post
-          </button>
+          <button className="inline-block add-button button">Add</button>
         </div>
 
         <TodoList todos={todos} />
