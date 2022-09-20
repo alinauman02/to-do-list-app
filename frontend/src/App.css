@@ -3,46 +3,56 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: #066acd;
 }
+
 .App {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 5%;
 }
+
 .card {
   padding: 2% 3%;
   width: 30%;
   background-color: white;
   border-radius: 5%;
 }
-input:hover {
+
+.input-todo:hover {
   border-color: #24a0ed;
 }
-input {
+
+.input-todo {
   width: 100%;
   padding: 3%;
   margin: 1%;
 }
-ul {
+
+.ul-todos {
   margin-top: 20%;
   list-style-type: none;
 }
+
 .button {
   border-radius: 10%;
   color: white;
 }
+
 .add-button {
   padding: 3% 8%;
   background-color: #0d75ec;
   border-color: gray;
   font-weight: bold;
 }
+
 .add-button:hover {
   background-color: #24a0ed;
 }
+
 .list-item {
   padding: 2% 3%;
   margin: 2%;
@@ -50,6 +60,7 @@ ul {
   border: 1px solid #939697;
   background-color: #c5e1e6;
 }
+
 .list-item-p {
   width: 200%;
 }
@@ -59,13 +70,16 @@ ul {
   align-items: center;
   justify-content: center;
 }
+
 .inline-block {
   display: inline-block;
 }
+
 .del-icon {
   width: 70%;
   height: 70%;
 }
+
 .delete-button {
   padding: 2%;
   background-color: #0a2ea4;

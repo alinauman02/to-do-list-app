@@ -45,7 +45,7 @@ function App() {
           <Input
             onChange={onChange}
             value={todo.description}
-            placeholder="ENTER TASK"
+            placeholder="E.g Learn React"
             type="text"
             name="todo"
           />

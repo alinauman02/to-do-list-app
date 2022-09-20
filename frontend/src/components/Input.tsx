@@ -1,5 +1,5 @@
-import React, { ChangeEvent } from "react";
-import { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
+
 interface InputProps {
   name: string;
   value: string;
@@ -24,6 +24,7 @@ export default function Input({
 
   return (
     <input
+      className="input-todo"
       value={currentValue}
       name={name}
       type={type}
