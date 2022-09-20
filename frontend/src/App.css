@@ -22,7 +22,7 @@ body {
   border-radius: 5%;
 }
 
-input:hover {
+.input-todo:hover {
   border-color: #24a0ed;
 }
 
