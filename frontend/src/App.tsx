@@ -13,24 +13,31 @@ function App() {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({ description: event.target.value, id: "", isDone: false });
   };
+
   const addTask = () => {
-    fetch("http://localhost:3001/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ description: todo.description }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        let newtodos: Todo[] = [...todos, data];
-        setTodos(newtodos);
+    if (todo.description.trim().length === 0) {
+      alert("Enter valid description!");
+    } else {
+      fetch("http://localhost:3001/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ description: todo.description }),
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          let newtodos: Todo[] = [...todos, data];
+          setTodos(newtodos);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    setTodo({ description: "", id: "", isDone: false });
   };
+
   return (
     <div className="App">
       <div className=" card">
