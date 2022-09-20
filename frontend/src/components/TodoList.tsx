@@ -6,7 +6,7 @@ import TodoListItem from "./TodoListItem";
 export default function TodoList(props: any) {
   return (
     <div>
-      <ul>
+      <ul className="ul-todos">
         {props.todos.map((todo: Todo) => (
           <TodoListItem key={todo.id} todo={todo} />
         ))}

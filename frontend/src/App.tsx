@@ -11,8 +11,11 @@ function App() {
     { description: "Hello Pakistan", id: "24454", isDone: false },
     { description: "Hello GB", id: "24433", isDone: false },
   ]);
-
-  let value: string = "";
+  const [newTodo, setNewTodo] = useState<Todo>({
+    description: "Hello world",
+    id: "244454",
+    isDone: false,
+  });
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
   };
@@ -23,8 +26,8 @@ function App() {
         <div className="flex-container">
           <Input
             onChange={onChange}
-            value={value}
-            placeholder="ENTER TASK"
+            value={newTodo.description}
+            placeholder="E.g Learn React"
             type="text"
             name="todo"
           />

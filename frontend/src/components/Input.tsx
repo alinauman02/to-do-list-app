@@ -1,5 +1,5 @@
-import React, { ChangeEvent } from "react";
-import { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
+
 interface InputProps {
   name: string;
   value: string;
