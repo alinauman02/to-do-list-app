@@ -2,19 +2,21 @@ import React from "react";
 import { Todo } from "../models/todo.model";
 
 import TodoListItem from "./TodoListItem";
-interface todoList {
+interface todoListProps {
   todos: Todo[];
 }
-export default function TodoList(props: todoList) {
+export default function TodoList({ todos }: todoListProps) {
   return (
     <div>
       <ul className="ul-todos">
-        {props.todos.map((todo: Todo) => (
+        {todos.map((todo: Todo) => (
           <TodoListItem
             key={todo.id}
-            description={todo.description}
-            id={todo.id}
-            isDone={todo.isDone}
+            todo={{
+              description: todo.description,
+              id: todo.id,
+              isDone: todo.isDone,
+            }}
           />
         ))}
       </ul>
