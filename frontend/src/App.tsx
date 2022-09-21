@@ -20,7 +20,7 @@ function App() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ description: description }),
-    }).catch((err) => console.log(err.response.data));
+    });
 
     if (!response.ok) {
       console.log("No response!");
@@ -34,7 +34,9 @@ function App() {
       alert("Enter valid description!");
     } else {
       const urlString = "http://localhost:3001/todos";
-      getResponse(urlString, newTodoDescription);
+      getResponse(urlString, newTodoDescription).catch((err) =>
+        console.log(err.response.data)
+      );
     }
     setNewTodoDescription("");
   };
