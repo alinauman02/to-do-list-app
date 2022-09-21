@@ -17,10 +17,10 @@ todosRouter.delete('/:id', (req: Request, res: Response) => {
   }
 });
 
-todosRouter.put('/:id', (req: Request, res: Response) => {
+todosRouter.patch('/:id', (req: Request, res: Response) => {
   const index: number = todos.findIndex(todo => todo.id === req.params.id);
   if (index !== -1) {
-    todos[index].isDone = !req.body.isDone;
+    todos[index].isDone = req.body.isDone;
     res.json(todos[index]);
   }
 });
