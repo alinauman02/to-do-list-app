@@ -7,15 +7,13 @@ import { Todo } from "./models/todo.model";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  //const [todo, setTodo] = useState({ description: "", id: "", isDone: false });
   const [newTodoDescription, setNewTodoDescription] = useState("");
 
-    const onChange = (name: string, value: string) => {
+  const onChange = (name: string, value: string) => {
     setNewTodoDescription(value);
   };
 
   const addTask = () => {
-    
     if (newTodoDescription.trim().length === 0) {
       alert("Enter valid description!");
     } else {
