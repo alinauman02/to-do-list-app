@@ -19,17 +19,18 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ description: description }),
+      body: JSON.stringify({ description }),
     });
   }
 
   const addTask = async () => {
-    if (newTodoDescription.trim().length === 0) {
+    const trimmedTodoDescription: string = newTodoDescription.trim();
+    if (trimmedTodoDescription.length === 0) {
       alert("Enter valid description!");
     } else {
       try {
         const urlString = "http://localhost:3001/todos";
-        const response = await createTodo(urlString, newTodoDescription);
+        const response = await createTodo(urlString, trimmedTodoDescription);
 
         if (!response.ok) {
           throw new Error("Something Went Wrong!");
