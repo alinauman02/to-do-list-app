@@ -13,26 +13,27 @@ function App() {
     setNewTodoDescription(value);
   };
 
+  async function getResponse(url: string, description: string) {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ description: description }),
+    });
+    if (!response.ok) {
+      console.log("No response!");
+    }
+    const data: Todo = await response.json();
+    setTodos([...todos, data]);
+  }
+
   const addTask = () => {
     if (newTodoDescription.trim().length === 0) {
       alert("Enter valid description!");
     } else {
-      fetch("http://localhost:3001/todos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ description: newTodoDescription }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-          const newtodos: Todo[] = [...todos, data];
-          setTodos(newtodos);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      const urlString = "http://localhost:3001/todos";
+      getResponse(urlString, newTodoDescription);
     }
     setNewTodoDescription("");
   };
