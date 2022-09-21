@@ -22,7 +22,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="todo-app-wrapper">
       <div className=" card">
         <div className="flex-container">
           <Input
