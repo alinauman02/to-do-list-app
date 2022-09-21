@@ -7,15 +7,16 @@ import { Todo } from "./models/todo.model";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  //const [todo, setTodo] = useState({ description: "", id: "", isDone: false });
+  const [newTodoDescription, setNewTodoDescription] = useState("");
 
-  const [todo, setTodo] = useState({ description: "", id: "", isDone: false });
-
-  const onChange = (name: string, value: string) => {
-    setTodo({ description: value, id: "", isDone: false });
+    const onChange = (name: string, value: string) => {
+    setNewTodoDescription(value);
   };
 
   const addTask = () => {
-    if (todo.description.trim().length === 0) {
+    
+    if (newTodoDescription.trim().length === 0) {
       alert("Enter valid description!");
     } else {
       fetch("http://localhost:3001/todos", {
@@ -23,7 +24,7 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ description: todo.description }),
+        body: JSON.stringify({ description: newTodoDescription }),
       })
         .then((response) => response.json())
         .then((data) => {
@@ -35,7 +36,7 @@ function App() {
           console.error("Error:", error);
         });
     }
-    setTodo({ description: "", id: "", isDone: false });
+    setNewTodoDescription("");
   };
 
   return (
@@ -44,7 +45,7 @@ function App() {
         <div className="flex-container">
           <Input
             onChange={onChange}
-            value={todo.description}
+            value={newTodoDescription}
             placeholder="E.g Learn React"
             type="text"
             name="todo"
