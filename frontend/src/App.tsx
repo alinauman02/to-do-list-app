@@ -16,8 +16,9 @@ function App() {
     id: "244454",
     isDone: false,
   });
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
+
+  const onChange = (name: string, value: string) => {
+    console.log(name, ":", value);
   };
 
   return (
