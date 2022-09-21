@@ -5,9 +5,7 @@ const todos: Todo[] = [];
 const todosRouter = Router();
 
 todosRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
-  res.json({
-    message: 'Todo: Implement',
-  });
+  res.json(todos);
 });
 
 todosRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
