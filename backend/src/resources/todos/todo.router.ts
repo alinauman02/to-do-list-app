@@ -17,6 +17,14 @@ todosRouter.delete('/del', (req: Request, res: Response, next: NextFunction) => 
   }
 });
 
+todosRouter.put('/update', (req: Request, res: Response, next: NextFunction) => {
+  const index: number = todos.findIndex(todo => todo.id === req.query.id);
+  if (index !== -1) {
+    todos[index].isDone = !req.body.isDone;
+    res.json(todos[index]);
+  }
+});
+
 todosRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
   const todo: Todo = {
     id: Math.random().toString(36).substring(2, 7),
