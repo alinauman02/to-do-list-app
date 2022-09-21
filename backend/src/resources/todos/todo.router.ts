@@ -1,4 +1,4 @@
-import {  Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { Todo } from './todo.model';
 
 let todos: Todo[] = [];
@@ -18,21 +18,29 @@ todosRouter.delete('/:id', (req: Request, res: Response) => {
 });
 
 todosRouter.patch('/:id', (req: Request, res: Response) => {
-  const index: number = todos.findIndex(todo => todo.id === req.params.id);
-  if (index !== -1) {
-    todos[index].isDone = req.body.isDone;
-    res.json(todos[index]);
+  if (!req.body.isDone) {
+    throw new Error('Missing isDone in body');
+  } else {
+    const index: number = todos.findIndex(todo => todo.id === req.params.id);
+    if (index !== -1) {
+      todos[index].isDone = req.body.isDone;
+      res.json(todos[index]);
+    }
   }
 });
 
 todosRouter.post('/', (req: Request, res: Response) => {
-  const todo: Todo = {
-    id: Math.random().toString(36).substring(2, 7),
-    description: req.body.description,
-    isDone: false,
-  };
-  todos.push(todo);
-  res.json(todo);
+  if (!req.body.description) {
+    throw new Error('Missing Description in body');
+  } else {
+    const todo: Todo = {
+      id: Math.random().toString(36).substring(2, 7),
+      description: req.body.description,
+      isDone: false,
+    };
+    todos.push(todo);
+    res.json(todo);
+  }
 });
 
 export { todosRouter };
