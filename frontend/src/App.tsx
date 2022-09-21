@@ -24,8 +24,8 @@ function App() {
     if (!response.ok) {
       console.log("No response!");
     }
-    const data: Todo = await response.json();
-    setTodos([...todos, data]);
+    const newTodo: Todo = await response.json();
+    setTodos([...todos, newTodo]);
   }
 
   const addTask = () => {
