@@ -4,21 +4,21 @@ import { Todo } from './todo.model';
 let todos: Todo[] = [];
 const todosRouter = Router();
 
-todosRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
+todosRouter.get('/:id', (req: Request, res: Response) => {
   res.json(todos);
 });
 
-todosRouter.delete('/del', (req: Request, res: Response, next: NextFunction) => {
-  if (todos.findIndex(todo => todo.id === req.query.id) !== -1) {
-    todos = todos.filter(todo => todo.id !== req.query.id);
+todosRouter.delete('/:id', (req: Request, res: Response) => {
+  if (todos.findIndex(todo => todo.id === req.params.id) !== -1) {
+    todos = todos.filter(todo => todo.id !== req.params.id);
     res.json({ status: true });
   } else {
     res.json({ status: false });
   }
 });
 
-todosRouter.put('/update', (req: Request, res: Response, next: NextFunction) => {
-  const index: number = todos.findIndex(todo => todo.id === req.query.id);
+todosRouter.put('/:id', (req: Request, res: Response) => {
+  const index: number = todos.findIndex(todo => todo.id === req.params.id);
   if (index !== -1) {
     todos[index].isDone = !req.body.isDone;
     res.json(todos[index]);
