@@ -1,9 +1,11 @@
 import { Todo } from "../models/todo.model";
 import { IconDelete } from "./Icons/IconDelete";
-interface todoListItemProps {
+
+interface TodoListItemProps {
   todo: Todo;
 }
-export default function TodoListItem({ todo }: todoListItemProps) {
+
+export default function TodoListItem({ todo }: TodoListItemProps) {
   return (
     <li>
       <div className="list-item flex-container">

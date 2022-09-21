@@ -1,11 +1,13 @@
 import React from "react";
-import { Todo } from "../models/todo.model";
 
+import { Todo } from "../models/todo.model";
 import TodoListItem from "./TodoListItem";
-interface todoListProps {
+
+interface TodoListProps {
   todos: Todo[];
 }
-export default function TodoList({ todos }: todoListProps) {
+
+export default function TodoList({ todos }: TodoListProps) {
   return (
     <div>
       <ul className="ul-todos">

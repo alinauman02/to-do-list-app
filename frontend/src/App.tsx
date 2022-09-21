@@ -10,8 +10,8 @@ function App() {
 
   const [todo, setTodo] = useState({ description: "", id: "", isDone: false });
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTodo({ description: event.target.value, id: "", isDone: false });
+  const onChange = (name: string, value: string) => {
+    setTodo({ description: value, id: "", isDone: false });
   };
 
   const addTask = () => {
@@ -28,7 +28,7 @@ function App() {
         .then((response) => response.json())
         .then((data) => {
           console.log("Success:", data);
-          let newtodos: Todo[] = [...todos, data];
+          const newtodos: Todo[] = [...todos, data];
           setTodos(newtodos);
         })
         .catch((error) => {
@@ -39,7 +39,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="todo-app-wrapper">
       <div className=" card">
         <div className="flex-container">
           <Input

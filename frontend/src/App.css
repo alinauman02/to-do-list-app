@@ -8,7 +8,7 @@ body {
   background-color: #066acd;
 }
 
-.App {
+.todo-app-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
