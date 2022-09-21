@@ -20,7 +20,8 @@ function App() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ description: description }),
-    });
+    }).catch((err) => console.log(err.response.data));
+
     if (!response.ok) {
       console.log("No response!");
     }
