@@ -18,8 +18,10 @@ todosRouter.delete('/:id', (req: Request, res: Response) => {
 });
 
 todosRouter.patch('/:id', (req: Request, res: Response) => {
-  if (!req.body.isDone) {
+  if (req.body.isDone === undefined) {
     throw new Error('Missing isDone in body');
+  } else if (req.body.isDone !== true && req.body.isDone !== false) {
+    throw new Error('isDone is not Boolean!');
   } else {
     const index: number = todos.findIndex(todo => todo.id === req.params.id);
     if (index !== -1) {
@@ -30,8 +32,12 @@ todosRouter.patch('/:id', (req: Request, res: Response) => {
 });
 
 todosRouter.post('/', (req: Request, res: Response) => {
-  if (!req.body.description) {
+  if (req.body.description === undefined) {
     throw new Error('Missing Description in body');
+  } else if (typeof req.body.description !== 'string') {
+    throw new Error('Invalid Description!');
+  } else if (req.body.description.trim().length === 0) {
+    throw new Error('Empty Description!');
   } else {
     const todo: Todo = {
       id: Math.random().toString(36).substring(2, 7),
