@@ -3,25 +3,9 @@ import { IconDelete } from "./Icons/IconDelete";
 
 interface TodoListItemProps {
   todo: Todo;
+  deleteTodo: (id: string) => void;
 }
-
-const urlString = "http://localhost:3001/todos/";
-
-export default function TodoListItem({ todo }: TodoListItemProps) {
-  async function delTodo(url: string, id: string) {
-    return fetch(url + id, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
-
-  const deleteTodo = async (id: string) => {
-    const response = await delTodo(urlString, id);
-    console.log(response.json());
-  };
-
+export default function TodoListItem({ todo, deleteTodo }: TodoListItemProps) {
   return (
     <li>
       <div className="list-item flex-container">

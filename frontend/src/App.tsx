@@ -5,7 +5,7 @@ import Input from "./components/Input";
 import TodoList from "./components/TodoList";
 import { Todo } from "./models/todo.model";
 
-const urlString = "http://localhost:3001/todos";
+const urlString = "http://localhost:3001/todos/";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -32,10 +32,6 @@ function App() {
     loadTodos();
   }, [todos]);
 
-  const onChange = (name: string, value: string) => {
-    setNewTodoDescription(value);
-  };
-
   async function createTodo(url: string, description: string) {
     return fetch(url, {
       method: "POST",
@@ -52,7 +48,6 @@ function App() {
       alert("Enter valid description!");
     } else {
       try {
-        const urlString = "http://localhost:3001/todos";
         const response = await createTodo(urlString, trimmedTodoDescription);
 
         if (!response.ok) {
@@ -66,6 +61,23 @@ function App() {
       }
     }
     setNewTodoDescription("");
+  };
+
+  async function delTodo(url: string, id: string) {
+    return fetch(url + id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  const deleteTodo = async (id: string) => {
+    const response = await delTodo(urlString, id);
+  };
+
+  const onChange = (name: string, value: string) => {
+    setNewTodoDescription(value);
   };
 
   return (
@@ -84,8 +96,10 @@ function App() {
           </button>
         </div>
         {loading && <h3 className="h3-msg">LOADING</h3>}
-        {!loading && todos.length != 0 && <TodoList todos={todos} />}
-        {!loading && todos.length == 0 && <h3 className="h3-msg">NO TASKS</h3>}
+        {!loading && todos.length !== 0 && (
+          <TodoList todos={todos} deleteTodo={deleteTodo} />
+        )}
+        {!loading && todos.length === 0 && <h3 className="h3-msg">NO TASKS</h3>}
       </div>
     </div>
   );
