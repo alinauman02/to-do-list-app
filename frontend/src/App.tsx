@@ -1,13 +1,34 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Input from "./components/Input";
 import TodoList from "./components/TodoList";
 import { Todo } from "./models/todo.model";
 
+const urlString = "http://localhost:3001/todos";
+
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoDescription, setNewTodoDescription] = useState("");
+
+  async function fetchTodos(url: string) {
+    return fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  const loadTodos = async () => {
+    const response = await fetchTodos(urlString);
+    const tempTodos: Todo[] = await response.json();
+    setTodos(() => [...tempTodos]);
+  };
+
+  useEffect(() => {
+    loadTodos();
+  }, [todos]);
 
   const onChange = (name: string, value: string) => {
     setNewTodoDescription(value);
