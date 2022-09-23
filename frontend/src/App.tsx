@@ -21,16 +21,15 @@ function App() {
     });
   }
 
-  const loadTodos = async () => {
-    const response = await fetchTodos(urlString);
-    const tempTodos: Todo[] = await response.json();
-    setTodos(() => [...tempTodos]);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const loadTodos = async () => {
+      const response = await fetchTodos(urlString);
+      const tempTodos: Todo[] = await response.json();
+      setTodos(() => [...tempTodos]);
+      setLoading(false);
+    };
     loadTodos();
-  }, [todos]);
+  }, []);
 
   async function createTodo(url: string, description: string) {
     return fetch(url, {
@@ -74,6 +73,10 @@ function App() {
 
   const deleteTodo = async (id: string) => {
     const response = await delTodo(urlString, id);
+    const { status } = await response.json();
+    if (status) {
+      setTodos((currentTodo) => currentTodo.filter((todo) => todo.id !== id));
+    }
   };
 
   const onChange = (name: string, value: string) => {
