@@ -1,13 +1,28 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { Todo } from './todo.model';
 
-const todos: Todo[] = [];
+let todos: Todo[] = [];
 const todosRouter = Router();
 
 todosRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
-  res.json({
-    message: 'Todo: Implement',
-  });
+  res.json(todos);
+});
+
+todosRouter.delete('/del', (req: Request, res: Response, next: NextFunction) => {
+  if (todos.findIndex(todo => todo.id === req.query.id) !== -1) {
+    todos = todos.filter(todo => todo.id !== req.query.id);
+    res.json({ status: true });
+  } else {
+    res.json({ status: false });
+  }
+});
+
+todosRouter.put('/update', (req: Request, res: Response, next: NextFunction) => {
+  const index: number = todos.findIndex(todo => todo.id === req.query.id);
+  if (index !== -1) {
+    todos[index].isDone = !req.body.isDone;
+    res.json(todos[index]);
+  }
 });
 
 todosRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
