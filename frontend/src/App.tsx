@@ -95,11 +95,13 @@ function App() {
             Add
           </button>
         </div>
-        {loading && <h3 className="h3-msg">LOADING</h3>}
+        {loading && <h3 className="h3-msg">LOADING...</h3>}
         {!loading && todos.length !== 0 && (
           <TodoList todos={todos} deleteTodo={deleteTodo} />
         )}
-        {!loading && todos.length === 0 && <h3 className="h3-msg">NO TASKS</h3>}
+        {!loading && todos.length === 0 && (
+          <h3 className="h3-msg">NO TASKS ADDED</h3>
+        )}
       </div>
     </div>
   );
