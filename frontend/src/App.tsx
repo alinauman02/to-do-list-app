@@ -10,6 +10,7 @@ const urlString = "http://localhost:3001/todos";
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoDescription, setNewTodoDescription] = useState("");
+  const [loading, setLoading] = useState(true);
 
   async function fetchTodos(url: string) {
     return fetch(url, {
@@ -24,6 +25,7 @@ function App() {
     const response = await fetchTodos(urlString);
     const tempTodos: Todo[] = await response.json();
     setTodos(() => [...tempTodos]);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -81,8 +83,9 @@ function App() {
             Add
           </button>
         </div>
-
-        <TodoList todos={todos} />
+        {loading && <h3 className="h3-msg">LOADING</h3>}
+        {!loading && todos.length != 0 && <TodoList todos={todos} />}
+        {!loading && todos.length == 0 && <h3 className="h3-msg">NO TASKS</h3>}
       </div>
     </div>
   );
