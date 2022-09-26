@@ -25,10 +25,14 @@ function App() {
   useEffect(() => {
     const controller = new AbortController();
     const loadTodos = async () => {
-      const response = await fetchTodos(urlString, controller.signal);
-      const tempTodos: Todo[] = await response.json();
-      setTodos(tempTodos);
-      setLoading(false);
+      try {
+        const response = await fetchTodos(urlString, controller.signal);
+        const tempTodos: Todo[] = await response.json();
+        setTodos(tempTodos);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
     loadTodos();
 
