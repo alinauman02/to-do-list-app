@@ -90,11 +90,12 @@ function App() {
   };
 
   const content = loading ? (
-    <h3 className="h3-msg">LOADING...</h3>
+    <h3 className="msg-text">LOADING...</h3>
   ) : !loading && todos.length !== 0 ? (
     <TodoList todos={todos} deleteTodo={onDeleteTodo}></TodoList>
   ) : (
-    !loading && todos.length === 0 && <h3 className="h3-msg">NO TASKS ADDED</h3>
+    !loading &&
+    todos.length === 0 && <h3 className="msg-text">NO TASKS ADDED</h3>
   );
 
   return (
