@@ -12,6 +12,20 @@ function App() {
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
 
+  function ChangeTodo(url: string, id: string, isDone: boolean) {
+    return fetch(url + id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isDone }),
+    });
+  }
+
+  const onChangeTodo = async (id: string, isDone: boolean) => {
+    await ChangeTodo(urlString, id, isDone);
+  };
+
   function fetchTodos(url: string, signal: AbortSignal) {
     return fetch(url, {
       signal,
@@ -96,7 +110,11 @@ function App() {
   const content = loading ? (
     <h3 className="msg-text">LOADING...</h3>
   ) : !loading && todos.length !== 0 ? (
-    <TodoList todos={todos} deleteTodo={onDeleteTodo}></TodoList>
+    <TodoList
+      todos={todos}
+      deleteTodo={onDeleteTodo}
+      checkTodo={onChangeTodo}
+    ></TodoList>
   ) : (
     !loading &&
     todos.length === 0 && <h3 className="msg-text">NO TASKS ADDED</h3>

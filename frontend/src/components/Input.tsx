@@ -15,6 +15,7 @@ export default function Input({
   placeholder,
   onChange,
 }: InputProps) {
+  
   const valueChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.name, event.target.value);
   };

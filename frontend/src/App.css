@@ -90,3 +90,8 @@ body {
   padding: 2%;
   background-color: #0a2ea4;
 }
+
+.check-box {
+  transform: scale(1.5);
+  margin-right: 5%;
+}
