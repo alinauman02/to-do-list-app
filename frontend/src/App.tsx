@@ -12,8 +12,9 @@ function App() {
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
 
-  async function fetchTodos(url: string) {
+  function fetchTodos(url: string, signal: AbortSignal) {
     return fetch(url, {
+      signal,
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,16 +23,21 @@ function App() {
   }
 
   useEffect(() => {
+    const controller = new AbortController();
     const loadTodos = async () => {
-      const response = await fetchTodos(urlString);
+      const response = await fetchTodos(urlString, controller.signal);
       const tempTodos: Todo[] = await response.json();
-      setTodos(() => [...tempTodos]);
+      setTodos(tempTodos);
       setLoading(false);
     };
     loadTodos();
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
-  async function createTodo(url: string, description: string) {
+  function addTodo(url: string, description: string) {
     return fetch(url, {
       method: "POST",
       headers: {
@@ -41,13 +47,13 @@ function App() {
     });
   }
 
-  const addTask = async () => {
+  const onAddTodo = async () => {
     const trimmedTodoDescription: string = newTodoDescription.trim();
     if (trimmedTodoDescription.length === 0) {
       alert("Enter valid description!");
     } else {
       try {
-        const response = await createTodo(urlString, trimmedTodoDescription);
+        const response = await addTodo(urlString, trimmedTodoDescription);
 
         if (!response.ok) {
           throw new Error("Something Went Wrong!");
@@ -62,7 +68,7 @@ function App() {
     setNewTodoDescription("");
   };
 
-  async function delTodo(url: string, id: string) {
+  function deleteTodo(url: string, id: string) {
     return fetch(url + id, {
       method: "DELETE",
       headers: {
@@ -71,8 +77,8 @@ function App() {
     });
   }
 
-  const deleteTodo = async (id: string) => {
-    const response = await delTodo(urlString, id);
+  const onDeleteTodo = async (id: string) => {
+    const response = await deleteTodo(urlString, id);
     const { status } = await response.json();
     if (status) {
       setTodos((currentTodo) => currentTodo.filter((todo) => todo.id !== id));
@@ -82,6 +88,14 @@ function App() {
   const onChange = (name: string, value: string) => {
     setNewTodoDescription(value);
   };
+
+  const content = loading ? (
+    <h3 className="h3-msg">LOADING...</h3>
+  ) : !loading && todos.length !== 0 ? (
+    <TodoList todos={todos} deleteTodo={onDeleteTodo}></TodoList>
+  ) : (
+    !loading && todos.length === 0 && <h3 className="h3-msg">NO TASKS ADDED</h3>
+  );
 
   return (
     <div className="todo-app-wrapper">
@@ -94,17 +108,14 @@ function App() {
             type="text"
             name="todo"
           />
-          <button className="inline-block add-button button" onClick={addTask}>
+          <button
+            className="inline-block add-button button"
+            onClick={onAddTodo}
+          >
             Add
           </button>
         </div>
-        {loading && <h3 className="h3-msg">LOADING...</h3>}
-        {!loading && todos.length !== 0 && (
-          <TodoList todos={todos} deleteTodo={deleteTodo} />
-        )}
-        {!loading && todos.length === 0 && (
-          <h3 className="h3-msg">NO TASKS ADDED</h3>
-        )}
+        {content}
       </div>
     </div>
   );
