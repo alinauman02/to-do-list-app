@@ -12,7 +12,7 @@ function App() {
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
 
-  function fetchTodos(url: string, signal: AbortSignal) {
+  const fetchTodos = (url: string, signal: AbortSignal) => {
     return fetch(url, {
       signal,
       method: "GET",
@@ -20,7 +20,7 @@ function App() {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
   useEffect(() => {
     const controller = new AbortController();
@@ -41,7 +41,7 @@ function App() {
     };
   }, []);
 
-  function addTodo(url: string, description: string) {
+  const addTodo = (url: string, description: string) => {
     return fetch(url, {
       method: "POST",
       headers: {
@@ -49,7 +49,7 @@ function App() {
       },
       body: JSON.stringify({ description }),
     });
-  }
+  };
 
   const onAddTodo = async () => {
     const trimmedTodoDescription: string = newTodoDescription.trim();
@@ -72,14 +72,14 @@ function App() {
     setNewTodoDescription("");
   };
 
-  function deleteTodo(url: string, id: string) {
+  const deleteTodo = (url: string, id: string) => {
     return fetch(url + id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
   const onDeleteTodo = async (id: string) => {
     const response = await deleteTodo(urlString, id);
@@ -106,19 +106,16 @@ function App() {
     <div className="todo-app-wrapper">
       <div className=" card">
         <div className="flex-container">
-          <Input
-            onChange={onChange}
-            value={newTodoDescription}
-            placeholder="E.g Learn React"
-            type="text"
-            name="todo"
-          />
-          <button
-            className="inline-block add-button button"
-            onClick={onAddTodo}
-          >
-            Add
-          </button>
+          <form className="todo-form" onSubmit={onAddTodo}>
+            <Input
+              onChange={onChange}
+              value={newTodoDescription}
+              placeholder="E.g Learn React"
+              type="text"
+              name="todo"
+            />
+            <input type="submit" className="add-button button" value="Add" />
+          </form>
         </div>
         {content}
       </div>
