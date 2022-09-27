@@ -5,22 +5,22 @@ import TodoListItem from "./TodoListItem";
 
 interface TodoListProps {
   todos: Todo[];
-  deleteTodo: (id: string) => void;
-  checkTodo: (id: string, isDone: boolean) => void;
+  onDeleteTodo: (id: string) => void;
+  onChangeTodo: (id: string, isDone: boolean) => void;
 }
 
 export default function TodoList({
   todos,
-  deleteTodo,
-  checkTodo,
+  onDeleteTodo,
+  onChangeTodo,
 }: TodoListProps) {
   return (
     <div>
       <ul className="ul-todos">
         {todos.map((todo: Todo) => (
           <TodoListItem
-            checkTodo={checkTodo}
-            deleteTodo={deleteTodo}
+            onChangeTodo={onChangeTodo}
+            onDeleteTodo={onDeleteTodo}
             key={todo.id}
             todo={{
               description: todo.description,

@@ -4,17 +4,17 @@ import { IconDelete } from "./Icons/IconDelete";
 
 interface TodoListItemProps {
   todo: Todo;
-  deleteTodo: (id: string) => void;
-  checkTodo: (id: string, check: boolean) => void;
+  onDeleteTodo: (id: string) => void;
+  onChangeTodo: (id: string, check: boolean) => void;
 }
 export default function TodoListItem({
   todo,
-  deleteTodo,
-  checkTodo,
+  onChangeTodo,
+  onDeleteTodo,
 }: TodoListItemProps) {
   const [check, setCheck] = useState(!todo.isDone);
   const valueChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    checkTodo(todo.id, event.target.checked);
+    onChangeTodo(todo.id, event.target.checked);
     setCheck(!check);
   };
 
@@ -36,7 +36,7 @@ export default function TodoListItem({
         <button
           className="delete-button button"
           onClick={() => {
-            deleteTodo(todo.id);
+            onDeleteTodo(todo.id);
           }}
         >
           <IconDelete />
