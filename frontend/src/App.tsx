@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import Input from "./components/Input";
 import TodoList from "./components/TodoList";
@@ -52,7 +52,8 @@ function App() {
     });
   };
 
-  const onAddTodo = async () => {
+  const onAddTodo = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const trimmedTodoDescription: string = newTodoDescription.trim();
     if (trimmedTodoDescription.length === 0) {
       alert("Enter valid description!");
