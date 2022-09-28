@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import Input from "./components/Input";
 import TodoList from "./components/TodoList";
@@ -12,7 +12,7 @@ function App() {
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
 
-  function changeTodo(url: string, id: string, isDone: boolean) {
+  const changeTodo = (url: string, id: string, isDone: boolean)=> {
     return fetch(url + id, {
       method: "PATCH",
       headers: {
@@ -26,7 +26,10 @@ function App() {
     await changeTodo(urlString, id, isDone);
   };
 
-  function fetchTodos(url: string, signal: AbortSignal) {
+ 
+
+  const fetchTodos = (url: string, signal: AbortSignal) => {
+s
     return fetch(url, {
       signal,
       method: "GET",
@@ -34,7 +37,7 @@ function App() {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
   useEffect(() => {
     const controller = new AbortController();
@@ -46,6 +49,7 @@ function App() {
         setLoading(false);
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     };
     loadTodos();
@@ -55,7 +59,7 @@ function App() {
     };
   }, []);
 
-  function addTodo(url: string, description: string) {
+  const addTodo = (url: string, description: string) => {
     return fetch(url, {
       method: "POST",
       headers: {
@@ -63,9 +67,10 @@ function App() {
       },
       body: JSON.stringify({ description }),
     });
-  }
+  };
 
-  const onAddTodo = async () => {
+  const onAddTodo = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const trimmedTodoDescription: string = newTodoDescription.trim();
     if (trimmedTodoDescription.length === 0) {
       alert("Enter valid description!");
@@ -86,14 +91,14 @@ function App() {
     setNewTodoDescription("");
   };
 
-  function deleteTodo(url: string, id: string) {
+  const deleteTodo = (url: string, id: string) => {
     return fetch(url + id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
   const onDeleteTodo = async (id: string) => {
     const response = await deleteTodo(urlString, id);
@@ -116,27 +121,23 @@ function App() {
       onChangeTodo={onChangeTodo}
     ></TodoList>
   ) : (
-    !loading &&
-    todos.length === 0 && <h3 className="msg-text">NO TASKS ADDED</h3>
+    !loading && todos.length === 0 && <h3 className="msg-text">NO TODOS</h3>
   );
 
   return (
     <div className="todo-app-wrapper">
       <div className=" card">
         <div className="flex-container">
-          <Input
-            onChange={onChange}
-            value={newTodoDescription}
-            placeholder="E.g Learn React"
-            type="text"
-            name="todo"
-          />
-          <button
-            className="inline-block add-button button"
-            onClick={onAddTodo}
-          >
-            Add
-          </button>
+          <form className="todo-form" onSubmit={onAddTodo}>
+            <Input
+              onChange={onChange}
+              value={newTodoDescription}
+              placeholder="E.g Learn React"
+              type="text"
+              name="todo"
+            />
+            <input type="submit" className="add-button button" value="Add" />
+          </form>
         </div>
         {content}
       </div>

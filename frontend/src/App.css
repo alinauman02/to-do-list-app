@@ -27,9 +27,10 @@ body {
 }
 
 .input-todo {
-  width: 100%;
+  width: 150%;
+  height: 120%;
   padding: 3%;
-  margin: 1%;
+  margin: 3%;
 }
 
 .ul-todos {
@@ -52,6 +53,7 @@ body {
   padding: 3% 8%;
   background-color: #0d75ec;
   border-color: gray;
+  margin: 3%;
   font-weight: bold;
 }
 
@@ -94,4 +96,11 @@ body {
 .check-box {
   transform: scale(1.5);
   margin-right: 5%;
+
+.todo-form {
+  display: flex;
+  width: 200%;
+  vertical-align: top;
+  text-align: center;
+
 }
