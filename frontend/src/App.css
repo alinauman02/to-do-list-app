@@ -96,11 +96,4 @@ body {
 .check-box {
   transform: scale(1.5);
   margin-right: 5%;
-
-.todo-form {
-  display: flex;
-  width: 200%;
-  vertical-align: top;
-  text-align: center;
-
 }

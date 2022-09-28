@@ -12,7 +12,7 @@ function App() {
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const changeTodo = (url: string, id: string, isDone: boolean)=> {
+  const changeTodo = (url: string, id: string, isDone: boolean) => {
     return fetch(url + id, {
       method: "PATCH",
       headers: {
@@ -20,16 +20,13 @@ function App() {
       },
       body: JSON.stringify({ isDone }),
     });
-  }
+  };
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
     await changeTodo(urlString, id, isDone);
   };
 
- 
-
   const fetchTodos = (url: string, signal: AbortSignal) => {
-s
     return fetch(url, {
       signal,
       method: "GET",
