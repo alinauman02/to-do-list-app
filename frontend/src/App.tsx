@@ -98,8 +98,7 @@ function App() {
   ) : !loading && todos.length !== 0 ? (
     <TodoList todos={todos} deleteTodo={onDeleteTodo}></TodoList>
   ) : (
-    !loading &&
-    todos.length === 0 && <h3 className="msg-text">NO TASKS ADDED</h3>
+    !loading && todos.length === 0 && <h3 className="msg-text">NO TODOS</h3>
   );
 
   return (
