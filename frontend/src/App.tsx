@@ -1,5 +1,5 @@
 import "./App.css";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 
 import Input from "./components/Input";
 import TodoList from "./components/TodoList";
@@ -12,6 +12,7 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState(0);
 
   const changeTodo = (url: string, id: string, isDone: boolean) => {
     return fetch(url + id, {
@@ -36,22 +37,24 @@ function App() {
       },
     });
   };
-  const loadTodos = async (check?: number, signal?: AbortSignal) => {
-    try {
-      const response = await fetchTodos(
-        "http://localhost:3001/todos/?check=" + check,
-        signal
-      );
-      const tempTodos: Todo[] = await response.json();
-      console.log(tempTodos);
-      setTodos(tempTodos);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
+  const loadTodos = useCallback(
+    async (check?: number, signal?: AbortSignal) => {
+      try {
+        const response = await fetchTodos(
+          "http://localhost:3001/todos/?check=" + check,
+          signal
+        );
+        const tempTodos: Todo[] = await response.json();
+        console.log(tempTodos);
+        setTodos(tempTodos);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    },
+    []
+  );
   useEffect(() => {
     const controller = new AbortController();
 
@@ -60,7 +63,7 @@ function App() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [loadTodos]);
 
   const addTodo = (url: string, description: string) => {
     return fetch(url, {
@@ -145,6 +148,7 @@ function App() {
         <br></br>
         <Filters
           categories={["ALL", "PENDING", "COMPLETED"]}
+          filter={filter}
           loadTodos={loadTodos}
         />
         {content}

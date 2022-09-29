@@ -118,4 +118,5 @@ body {
   padding: 0;
   overflow: hidden;
   color: gray;
+  cursor: pointer;
 }
