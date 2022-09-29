@@ -12,10 +12,11 @@ export default function TodoListItem({
   onChangeTodo,
   onDeleteTodo,
 }: TodoListItemProps) {
-  const [check, setCheck] = useState(!todo.isDone);
+  const [check, setCheck] = useState(todo.isDone);
   const valueChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     onChangeTodo(todo.id, event.target.checked);
-    setCheck(!check);
+    todo.isDone = event.target.checked;
+    setCheck(() => todo.isDone);
   };
 
   return (
@@ -25,12 +26,12 @@ export default function TodoListItem({
           className="check-box"
           type="checkbox"
           onChange={valueChangeHandler}
-          checked={!check}
+          checked={check}
         />
 
         <p className="list-item-p">
-          {check && todo.description}
-          {!check && <s> {todo.description}</s>}
+          {!check && todo.description}
+          {check && <s> {todo.description}</s>}
         </p>
 
         <button
