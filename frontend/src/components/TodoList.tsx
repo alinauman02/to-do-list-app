@@ -5,14 +5,16 @@ import TodoListItem from "./TodoListItem";
 
 interface TodoListProps {
   todos: Todo[];
+  deleteTodo: (id: string) => void;
 }
 
-export default function TodoList({ todos }: TodoListProps) {
+export default function TodoList({ todos, deleteTodo }: TodoListProps) {
   return (
     <div>
       <ul className="ul-todos">
         {todos.map((todo: Todo) => (
           <TodoListItem
+            deleteTodo={deleteTodo}
             key={todo.id}
             todo={{
               description: todo.description,
