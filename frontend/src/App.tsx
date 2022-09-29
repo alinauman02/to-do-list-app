@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import Input from "./components/Input";
 import TodoList from "./components/TodoList";
 import { Todo } from "./models/todo.model";
+import Filters from "./components/Filters";
 
 const urlString = "http://localhost:3001/todos/";
 
@@ -35,20 +36,25 @@ function App() {
       },
     });
   };
+  const controller = new AbortController();
+  const loadTodos = async (check?: number) => {
+    try {
+      if (check === undefined) check = 1;
+      const response = await fetchTodos(
+        "http://localhost:3001/todos/?check=" + check,
+        controller.signal
+      );
+      const tempTodos: Todo[] = await response.json();
+      console.log(tempTodos);
+      setTodos(tempTodos);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const controller = new AbortController();
-    const loadTodos = async () => {
-      try {
-        const response = await fetchTodos(urlString, controller.signal);
-        const tempTodos: Todo[] = await response.json();
-        setTodos(tempTodos);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    };
     loadTodos();
 
     return () => {
@@ -136,6 +142,11 @@ function App() {
             <input type="submit" className="add-button button" value="Add" />
           </form>
         </div>
+        <br></br>
+        <Filters
+          categories={["ALL", "PENDING", "COMPLETED"]}
+          loadTodos={loadTodos}
+        />
         {content}
       </div>
     </div>

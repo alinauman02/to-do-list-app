@@ -103,3 +103,19 @@ body {
   vertical-align: top;
   text-align: center;
 }
+.category-items {
+  float: left;
+  padding-right: 10px;
+}
+
+.category-items:hover {
+  color: black;
+  font-weight: bold;
+}
+.filter-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: gray;
+}
