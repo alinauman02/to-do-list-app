@@ -24,6 +24,12 @@ function App() {
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
     await changeTodo(urlString, id, isDone);
+    setTodos(() => {
+      const tempTodos: Todo[] = [...todos];
+      const index = tempTodos.findIndex((todo) => todo.id === id);
+      tempTodos[index].isDone = isDone;
+      return tempTodos;
+    });
   };
 
   const fetchTodos = (url: string, signal: AbortSignal) => {
