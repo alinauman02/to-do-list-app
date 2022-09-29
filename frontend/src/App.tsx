@@ -8,6 +8,8 @@ import { Todo } from "./models/todo.model";
 const urlString = "http://localhost:3001/todos/";
 
 function App() {
+  console.log("app rerendered");
+
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
@@ -24,11 +26,15 @@ function App() {
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
     await changeTodo(urlString, id, isDone);
-    setTodos(() => {
-      const tempTodos: Todo[] = [...todos];
-      const index = tempTodos.findIndex((todo) => todo.id === id);
-      tempTodos[index].isDone = isDone;
-      return tempTodos;
+
+    setTodos((currentTodos) => {
+      return currentTodos.map((t) => {
+        if (t.id === id) {
+          return { ...t, isDone };
+        }
+
+        return t;
+      });
     });
   };
 
