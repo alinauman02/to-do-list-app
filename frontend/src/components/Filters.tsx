@@ -2,7 +2,7 @@ import React from "react";
 
 interface filtersProps {
   categories: string[];
-  loadTodos: (check?: number) => void;
+  loadTodos: (check?: number, signal?: AbortSignal) => void;
 }
 
 export default function Filters({ categories, loadTodos }: filtersProps) {

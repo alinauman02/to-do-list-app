@@ -27,7 +27,7 @@ function App() {
     await changeTodo(urlString, id, isDone);
   };
 
-  const fetchTodos = (url: string, signal: AbortSignal) => {
+  const fetchTodos = (url: string, signal?: AbortSignal) => {
     return fetch(url, {
       signal,
       method: "GET",
@@ -36,13 +36,11 @@ function App() {
       },
     });
   };
-  const controller = new AbortController();
-  const loadTodos = async (check?: number) => {
+  const loadTodos = async (check?: number, signal?: AbortSignal) => {
     try {
-      if (check === undefined) check = 1;
       const response = await fetchTodos(
         "http://localhost:3001/todos/?check=" + check,
-        controller.signal
+        signal
       );
       const tempTodos: Todo[] = await response.json();
       console.log(tempTodos);
@@ -55,7 +53,9 @@ function App() {
   };
 
   useEffect(() => {
-    loadTodos();
+    const controller = new AbortController();
+
+    loadTodos(1, controller.signal);
 
     return () => {
       controller.abort();
