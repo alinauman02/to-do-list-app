@@ -12,26 +12,28 @@ export default function Filters({
   changeFilter,
 }: FilterProps) {
   return (
-    <div className="filter-list">
+    <ul className="filter-list">
       {categories.map((item: "ALL" | "PENDING" | "COMPLETED") => {
         return selectedFilter === item ? (
-          <button
-            key={item}
-            className="category-items selected-filter"
-            onClick={() => changeFilter(item)}
-          >
-            {item}
-          </button>
+          <li key={item} className="category-items selected-filter">
+            <button
+              className="category-buttons"
+              onClick={() => changeFilter(item)}
+            >
+              {item}
+            </button>
+          </li>
         ) : (
-          <button
-            key={item}
-            className="category-items"
-            onClick={() => changeFilter(item)}
-          >
-            {item}
-          </button>
+          <li key={item} className="category-items">
+            <button
+              className="category-buttons"
+              onClick={() => changeFilter(item)}
+            >
+              {item}
+            </button>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 }

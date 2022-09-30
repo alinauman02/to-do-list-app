@@ -108,14 +108,12 @@ body {
 .category-items {
   float: left;
   margin-right: 10px;
-  background: none;
-  color: inherit;
-  border: none;
 }
 
-.category-items:hover {
+.category-buttons:hover {
   color: #066acd;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .filter-list {
@@ -130,5 +128,12 @@ body {
 .selected-filter {
   color: #066acd;
   border-bottom: #066acd solid;
+  font-weight: bold;
+}
+
+.category-buttons {
+  background: none;
+  color: inherit;
+  border: none;
   font-weight: bold;
 }
