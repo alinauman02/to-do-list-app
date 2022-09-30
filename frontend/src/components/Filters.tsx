@@ -1,29 +1,37 @@
-import React from "react";
+export type Category = "ALL" | "PENDING" | "COMPLETED";
 
 interface filtersProps {
-  categories: string[];
-  filter: number;
-  loadTodos: (check?: number, signal?: AbortSignal) => void;
+  categories: Category[];
+  selectedFilter: Category;
+  changeFilter: (filter: Category) => void;
 }
 
 export default function Filters({
-  filter,
+  selectedFilter,
   categories,
-  loadTodos,
+  changeFilter,
 }: filtersProps) {
-  const filterLoadTodos = (check: string): void => {
-    if (check === "ALL") loadTodos(1);
-    else if (check === "PENDING") loadTodos(2);
-    else loadTodos(3);
-  };
   return (
     <ul className="filter-list">
-      {categories.map((item, index) => (
-        <li className="category-items">{item}</li>
-        {
-          if(index===file)
-        }
-      ))}
+      {categories.map((item: "ALL" | "PENDING" | "COMPLETED") => {
+        return selectedFilter === item ? (
+          <li
+            key={item}
+            className="category-items selected-filter"
+            onClick={() => changeFilter(item)}
+          >
+            {item}
+          </li>
+        ) : (
+          <li
+            key={item}
+            className="category-items"
+            onClick={() => changeFilter(item)}
+          >
+            {item}
+          </li>
+        );
+      })}
     </ul>
   );
 }

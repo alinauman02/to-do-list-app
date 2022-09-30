@@ -4,7 +4,7 @@ import { FormEvent, useCallback, useEffect, useState } from "react";
 import Input from "./components/Input";
 import TodoList from "./components/TodoList";
 import { Todo } from "./models/todo.model";
-import Filters from "./components/Filters";
+import Filters, { Category } from "./components/Filters";
 
 const urlString = "http://localhost:3001/todos/";
 
@@ -12,7 +12,11 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState(0);
+  const [selectedFilter, setSelectedFilter] = useState<Category>("ALL");
+
+  const changeFilter = (check: Category): void => {
+    loadTodos(check);
+  };
 
   const changeTodo = (url: string, id: string, isDone: boolean) => {
     return fetch(url + id, {
@@ -26,6 +30,8 @@ function App() {
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
     await changeTodo(urlString, id, isDone);
+    if (selectedFilter === "COMPLETED" || selectedFilter === "PENDING")
+      setTodos((currentTodo) => currentTodo.filter((todo) => todo.id !== id));
   };
 
   const fetchTodos = (url: string, signal?: AbortSignal) => {
@@ -38,16 +44,19 @@ function App() {
     });
   };
   const loadTodos = useCallback(
-    async (check?: number, signal?: AbortSignal) => {
+    async (check?: Category, signal?: AbortSignal) => {
       try {
         const response = await fetchTodos(
           "http://localhost:3001/todos/?check=" + check,
           signal
         );
         const tempTodos: Todo[] = await response.json();
-        console.log(tempTodos);
+
         setTodos(tempTodos);
         setLoading(false);
+        if (check === "ALL") setSelectedFilter("ALL");
+        else if (check === "PENDING") setSelectedFilter("PENDING");
+        else setSelectedFilter("COMPLETED");
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -58,7 +67,7 @@ function App() {
   useEffect(() => {
     const controller = new AbortController();
 
-    loadTodos(1, controller.signal);
+    loadTodos("ALL", controller.signal);
 
     return () => {
       controller.abort();
@@ -148,8 +157,8 @@ function App() {
         <br></br>
         <Filters
           categories={["ALL", "PENDING", "COMPLETED"]}
-          filter={filter}
-          loadTodos={loadTodos}
+          selectedFilter={selectedFilter}
+          changeFilter={changeFilter}
         />
         {content}
       </div>

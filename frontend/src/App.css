@@ -105,11 +105,11 @@ body {
 }
 .category-items {
   float: left;
-  padding-right: 10px;
+  margin-right: 10px;
 }
 
 .category-items:hover {
-  color: black;
+  color: #066acd;
   font-weight: bold;
 }
 .filter-list {
@@ -119,4 +119,9 @@ body {
   overflow: hidden;
   color: gray;
   cursor: pointer;
+}
+.selected-filter {
+  color: #066acd;
+  border-bottom: #066acd solid;
+  font-weight: bold;
 }

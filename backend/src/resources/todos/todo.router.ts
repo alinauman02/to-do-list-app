@@ -5,9 +5,9 @@ let todos: Todo[] = [];
 const todosRouter = Router();
 
 todosRouter.get('/', (req: Request, res: Response) => {
-  if (req.query.check === undefined || req.query.check === '1') res.json(todos);
-  else if (req.query.check === '2') res.json(todos.filter(todo => todo.isDone === false));
-  else if (req.query.check === '3') res.json(todos.filter(todo => todo.isDone === true));
+  if (req.query.check === undefined || req.query.check === 'ALL') res.json(todos);
+  else if (req.query.check === 'PENDING') res.json(todos.filter(todo => todo.isDone === false));
+  else if (req.query.check === 'COMPLETED') res.json(todos.filter(todo => todo.isDone === true));
 });
 
 todosRouter.delete('/:id', (req: Request, res: Response) => {
