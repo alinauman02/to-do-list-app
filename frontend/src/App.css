@@ -97,21 +97,27 @@ body {
   transform: scale(1.5);
   margin-right: 5%;
 }
+
 .todo-form {
   display: flex;
   width: 200%;
   vertical-align: top;
   text-align: center;
 }
+
 .category-items {
   float: left;
   margin-right: 10px;
+  background: none;
+  color: inherit;
+  border: none;
 }
 
 .category-items:hover {
   color: #066acd;
   font-weight: bold;
 }
+
 .filter-list {
   list-style-type: none;
   margin: 0;
@@ -120,6 +126,7 @@ body {
   color: gray;
   cursor: pointer;
 }
+
 .selected-filter {
   color: #066acd;
   border-bottom: #066acd solid;
