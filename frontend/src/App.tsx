@@ -68,9 +68,7 @@ function App() {
 
   useEffect(() => {
     const controller = new AbortController();
-
     loadTodos("ALL", controller.signal);
-
     return () => {
       controller.abort();
     };
@@ -99,8 +97,8 @@ function App() {
           throw new Error("Something Went Wrong!");
         }
         const newTodo: Todo = await response.json();
-
-        setTodos((currentTodos) => [...currentTodos, newTodo]);
+        if (selectedFilter !== "COMPLETED")
+          setTodos((currentTodos) => [...currentTodos, newTodo]);
       } catch (error) {
         console.log(error);
       }
