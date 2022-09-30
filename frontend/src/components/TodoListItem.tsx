@@ -14,7 +14,6 @@ export default function TodoListItem({
 }: TodoListItemProps) {
   const valueChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     onChangeTodo(todo.id, event.target.checked);
-    todo.isDone = event.target.checked;
   };
 
   return (
