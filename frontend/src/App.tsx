@@ -43,6 +43,7 @@ function App() {
       },
     });
   };
+
   const loadTodos = useCallback(
     async (check?: Category, signal?: AbortSignal) => {
       try {
@@ -64,6 +65,7 @@ function App() {
     },
     []
   );
+
   useEffect(() => {
     const controller = new AbortController();
 
