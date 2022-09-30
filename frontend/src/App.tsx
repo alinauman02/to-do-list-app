@@ -8,8 +8,6 @@ import { Todo } from "./models/todo.model";
 const urlString = "http://localhost:3001/todos/";
 
 function App() {
-  console.log("app rerendered");
-
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
