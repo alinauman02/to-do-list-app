@@ -100,6 +100,7 @@ function App() {
         const newTodo: Todo = await response.json();
         if (selectedFilter !== Category.COMPLETED)
           setTodos((currentTodos) => [...currentTodos, newTodo]);
+        else changeFilter(Category.ALL);
       } catch (error) {
         console.log(error);
       }
