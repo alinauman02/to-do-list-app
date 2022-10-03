@@ -12,6 +12,30 @@ function App() {
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const changeTodo = (url: string, id: string, isDone: boolean) => {
+    return fetch(url + id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isDone }),
+    });
+  };
+
+  const onChangeTodo = async (id: string, isDone: boolean) => {
+    await changeTodo(urlString, id, isDone);
+
+    setTodos((currentTodos) => {
+      return currentTodos.map((t) => {
+        if (t.id === id) {
+          return { ...t, isDone };
+        }
+
+        return t;
+      });
+    });
+  };
+
   const fetchTodos = (url: string, signal: AbortSignal) => {
     return fetch(url, {
       signal,
@@ -98,7 +122,11 @@ function App() {
   const content = loading ? (
     <h3 className="msg-text">LOADING...</h3>
   ) : !loading && todos.length !== 0 ? (
-    <TodoList todos={todos} deleteTodo={onDeleteTodo}></TodoList>
+    <TodoList
+      todos={todos}
+      onDeleteTodo={onDeleteTodo}
+      onChangeTodo={onChangeTodo}
+    ></TodoList>
   ) : (
     !loading && todos.length === 0 && <h3 className="msg-text">NO TODOS</h3>
   );
