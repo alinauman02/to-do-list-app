@@ -13,7 +13,7 @@ export default function Filters({
 }: FilterProps) {
   return (
     <ul className="filter-list">
-      {categories.map((item: "ALL" | "PENDING" | "COMPLETED") => {
+      {categories.map((item: Category) => {
         return selectedFilter === item ? (
           <li key={item} className="category-items selected-filter">
             <button
