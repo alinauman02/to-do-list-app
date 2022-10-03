@@ -97,9 +97,44 @@ body {
   transform: scale(1.5);
   margin-right: 5%;
 }
+
 .todo-form {
   display: flex;
   width: 200%;
   vertical-align: top;
   text-align: center;
+}
+
+.category-items {
+  display: flex;
+  margin-right: 10px;
+}
+
+.category-buttons:hover {
+  color: #066acd;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.filter-list {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: gray;
+  cursor: pointer;
+}
+
+.selected-filter {
+  color: #066acd;
+  border-bottom: #066acd solid;
+  font-weight: bold;
+}
+
+.category-buttons {
+  background: none;
+  color: inherit;
+  border: none;
+  font-weight: bold;
 }

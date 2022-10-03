@@ -1,9 +1,10 @@
 import "./App.css";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 
 import Input from "./components/Input";
 import TodoList from "./components/TodoList";
 import { Todo } from "./models/todo.model";
+import Filters, { Category } from "./components/Filters";
 
 const urlString = "http://localhost:3001/todos/";
 
@@ -11,6 +12,11 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
+  const [selectedFilter, setSelectedFilter] = useState<Category>(Category.ALL);
+
+  const changeFilter = (check: Category): void => {
+    loadTodos(check);
+  };
 
   const changeTodo = (url: string, id: string, isDone: boolean) => {
     return fetch(url + id, {
@@ -25,18 +31,16 @@ function App() {
   const onChangeTodo = async (id: string, isDone: boolean) => {
     await changeTodo(urlString, id, isDone);
 
-    setTodos((currentTodos) => {
-      return currentTodos.map((t) => {
-        if (t.id === id) {
-          return { ...t, isDone };
-        }
+    if (
+      selectedFilter === Category.COMPLETED ||
+      selectedFilter === Category.PENDING
+    )
+      setTodos((currentTodo) => currentTodo.filter((todo) => todo.id !== id));
 
-        return t;
-      });
-    });
+
   };
 
-  const fetchTodos = (url: string, signal: AbortSignal) => {
+  const fetchTodos = (url: string, signal?: AbortSignal) => {
     return fetch(url, {
       signal,
       method: "GET",
@@ -46,25 +50,33 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    const controller = new AbortController();
-    const loadTodos = async () => {
+  const loadTodos = useCallback(
+    async (check?: Category, signal?: AbortSignal) => {
       try {
-        const response = await fetchTodos(urlString, controller.signal);
+        const response = await fetchTodos(
+          "http://localhost:3001/todos/?check=" + check,
+          signal
+        );
         const tempTodos: Todo[] = await response.json();
+
         setTodos(tempTodos);
         setLoading(false);
+        if (check) setSelectedFilter(check);
       } catch (error) {
         console.log(error);
         setLoading(false);
       }
-    };
-    loadTodos();
+    },
+    []
+  );
 
+  useEffect(() => {
+    const controller = new AbortController();
+    loadTodos(Category.ALL, controller.signal);
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [loadTodos]);
 
   const addTodo = (url: string, description: string) => {
     return fetch(url, {
@@ -89,8 +101,9 @@ function App() {
           throw new Error("Something Went Wrong!");
         }
         const newTodo: Todo = await response.json();
-
-        setTodos((currentTodos) => [...currentTodos, newTodo]);
+        if (selectedFilter !== Category.COMPLETED)
+          setTodos((currentTodos) => [...currentTodos, newTodo]);
+        else changeFilter(Category.ALL);
       } catch (error) {
         console.log(error);
       }
@@ -127,8 +140,14 @@ function App() {
       onDeleteTodo={onDeleteTodo}
       onChangeTodo={onChangeTodo}
     ></TodoList>
+  ) : !loading && todos.length === 0 && selectedFilter === Category.ALL ? (
+    <h3 className="msg-text">NO TODOS</h3>
   ) : (
-    !loading && todos.length === 0 && <h3 className="msg-text">NO TODOS</h3>
+    !loading &&
+    todos.length === 0 &&
+    selectedFilter !== Category.ALL && (
+      <h3 className="msg-text">NO {selectedFilter} TODOS</h3>
+    )
   );
 
   return (
@@ -146,6 +165,12 @@ function App() {
             <input type="submit" className="add-button button" value="Add" />
           </form>
         </div>
+        <br></br>
+        <Filters
+          categories={[Category.ALL, Category.PENDING, Category.COMPLETED]}
+          selectedFilter={selectedFilter}
+          changeFilter={changeFilter}
+        />
         {content}
       </div>
     </div>
