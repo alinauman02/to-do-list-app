@@ -106,7 +106,7 @@ body {
 }
 
 .category-items {
-  float: left;
+  display: flex;
   margin-right: 10px;
 }
 
@@ -117,6 +117,8 @@ body {
 }
 
 .filter-list {
+  display: inline-block;
+  display: flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
