@@ -30,11 +30,14 @@ function App() {
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
     await changeTodo(urlString, id, isDone);
+
     if (
       selectedFilter === Category.COMPLETED ||
       selectedFilter === Category.PENDING
     )
       setTodos((currentTodo) => currentTodo.filter((todo) => todo.id !== id));
+
+
   };
 
   const fetchTodos = (url: string, signal?: AbortSignal) => {
