@@ -1,4 +1,8 @@
-export type Category = "ALL" | "PENDING" | "COMPLETED";
+export enum Category {
+  ALL = "ALL",
+  PENDING = "PENDING",
+  COMPLETED = "COMPLETED",
+}
 
 interface FilterProps {
   categories: Category[];

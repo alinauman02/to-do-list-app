@@ -12,7 +12,7 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
-  const [selectedFilter, setSelectedFilter] = useState<Category>("ALL");
+  const [selectedFilter, setSelectedFilter] = useState<Category>(Category.ALL);
 
   const changeFilter = (check: Category): void => {
     loadTodos(check);
@@ -30,7 +30,10 @@ function App() {
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
     await changeTodo(urlString, id, isDone);
-    if (selectedFilter === "COMPLETED" || selectedFilter === "PENDING")
+    if (
+      selectedFilter === Category.COMPLETED ||
+      selectedFilter === Category.PENDING
+    )
       setTodos((currentTodo) => currentTodo.filter((todo) => todo.id !== id));
   };
 
@@ -55,9 +58,7 @@ function App() {
 
         setTodos(tempTodos);
         setLoading(false);
-        if (check === "ALL") setSelectedFilter("ALL");
-        else if (check === "PENDING") setSelectedFilter("PENDING");
-        else setSelectedFilter("COMPLETED");
+        if (check) setSelectedFilter(check);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -68,7 +69,7 @@ function App() {
 
   useEffect(() => {
     const controller = new AbortController();
-    loadTodos("ALL", controller.signal);
+    loadTodos(Category.ALL, controller.signal);
     return () => {
       controller.abort();
     };
@@ -97,7 +98,7 @@ function App() {
           throw new Error("Something Went Wrong!");
         }
         const newTodo: Todo = await response.json();
-        if (selectedFilter !== "COMPLETED")
+        if (selectedFilter !== Category.COMPLETED)
           setTodos((currentTodos) => [...currentTodos, newTodo]);
       } catch (error) {
         console.log(error);
@@ -135,8 +136,14 @@ function App() {
       onDeleteTodo={onDeleteTodo}
       onChangeTodo={onChangeTodo}
     ></TodoList>
+  ) : !loading && todos.length === 0 && selectedFilter === Category.ALL ? (
+    <h3 className="msg-text">NO TODOS</h3>
   ) : (
-    !loading && todos.length === 0 && <h3 className="msg-text">NO TODOS</h3>
+    !loading &&
+    todos.length === 0 &&
+    selectedFilter !== Category.ALL && (
+      <h3 className="msg-text">NO {selectedFilter} TODOS</h3>
+    )
   );
 
   return (
@@ -156,7 +163,7 @@ function App() {
         </div>
         <br></br>
         <Filters
-          categories={["ALL", "PENDING", "COMPLETED"]}
+          categories={[Category.ALL, Category.PENDING, Category.COMPLETED]}
           selectedFilter={selectedFilter}
           changeFilter={changeFilter}
         />
