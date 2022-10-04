@@ -1,14 +1,8 @@
 import "./App.css";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 
-import { Todo } from "./models/todo.model";
-import {
-  urlString,
-  deleteTodo,
-  changeTodo,
-  addTodo,
-  fetchTodos,
-} from "./apis/";
+import { Todo } from "./models";
+import { deleteTodo, changeTodo, addTodo, fetchTodos } from "./apis/";
 import { Filters, Input, TodoList, Category } from "./components";
 
 function App() {
@@ -22,7 +16,7 @@ function App() {
   };
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
-    await changeTodo(urlString, id, isDone);
+    changeTodo(id, isDone);
     if (
       selectedFilter === Category.COMPLETED ||
       selectedFilter === Category.PENDING
@@ -44,12 +38,7 @@ function App() {
   const loadTodos = useCallback(
     async (check?: Category, signal?: AbortSignal) => {
       try {
-        const response = await fetchTodos(
-          "http://localhost:3001/todos/?check=" + check,
-          signal
-        );
-        const tempTodos: Todo[] = await response.json();
-
+        const tempTodos: Todo[] = await fetchTodos(check, signal);
         setTodos(tempTodos);
         setLoading(false);
         if (check) setSelectedFilter(check);
@@ -68,7 +57,7 @@ function App() {
       alert("Enter valid description!");
     } else {
       try {
-        const response = await addTodo(urlString, trimmedTodoDescription);
+        const response = await addTodo(trimmedTodoDescription);
 
         if (!response.ok) {
           throw new Error("Something Went Wrong!");
@@ -85,8 +74,8 @@ function App() {
   };
 
   const onDeleteTodo = async (id: string) => {
-    const response = await deleteTodo(urlString, id);
-    const { status } = await response.json();
+    const status = await deleteTodo(id);
+
     if (status) {
       setTodos((currentTodo) => currentTodo.filter((todo) => todo.id !== id));
     }

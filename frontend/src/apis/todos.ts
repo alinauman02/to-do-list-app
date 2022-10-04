@@ -1,16 +1,17 @@
-export const urlString = "http://localhost:3001/todos/";
+const urlString = "http://localhost:3001/todos/";
 
-export const deleteTodo = (url: string, id: string) => {
-  return fetch(url + id, {
+export const deleteTodo = async (id: string) => {
+  const response = await fetch(urlString + id, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
   });
+  return response.json();
 };
 
-export const changeTodo = (url: string, id: string, isDone: boolean) => {
-  return fetch(url + id, {
+export const changeTodo = (id: string, isDone: boolean) => {
+  fetch(urlString + id, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -19,8 +20,8 @@ export const changeTodo = (url: string, id: string, isDone: boolean) => {
   });
 };
 
-export const addTodo = (url: string, description: string) => {
-  return fetch(url, {
+export const addTodo = (description: string) => {
+  return fetch(urlString, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,12 +30,15 @@ export const addTodo = (url: string, description: string) => {
   });
 };
 
-export const fetchTodos = (url: string, signal?: AbortSignal) => {
-  return fetch(url, {
+export const fetchTodos = async (check?: string, signal?: AbortSignal) => {
+  const newUrlString = urlString + "/?check=" + check;
+
+  const response = await fetch(newUrlString, {
     signal,
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
+  return response.json();
 };
