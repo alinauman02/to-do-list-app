@@ -1,7 +1,7 @@
 import "./TodoList.css";
 
 import { Todo } from "../../models/todo.model";
-import { TodoListItem } from "../todolistitem/TodoListItem";
+import { TodoListItem } from "../TodoListItem/TodoListItem";
 
 interface TodoListProps {
   todos: Todo[];

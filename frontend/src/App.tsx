@@ -8,7 +8,7 @@ import {
   changeTodo,
   addTodo,
   fetchTodos,
-} from "./apis/";
+} from "./Apis/";
 import { Filters, Input, TodoList, Category } from "./components";
 
 function App() {
