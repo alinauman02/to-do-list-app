@@ -1,13 +1,14 @@
+import "./TodoListItem.css";
 import { ChangeEvent } from "react";
-import { Todo } from "../models/todo.model";
-import { IconDelete } from "./Icons/IconDelete";
+import { Todo } from "../../models/todo.model";
+import { IconDelete } from "../Icons/IconDelete";
 
 interface TodoListItemProps {
   todo: Todo;
   onDeleteTodo: (id: string) => void;
   onChangeTodo: (id: string, check: boolean) => void;
 }
-export default function TodoListItem({
+export function TodoListItem({
   todo,
   onChangeTodo,
   onDeleteTodo,

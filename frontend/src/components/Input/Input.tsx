@@ -1,3 +1,4 @@
+import "./Input.css";
 import { ChangeEvent } from "react";
 
 interface InputProps {
@@ -8,14 +9,13 @@ interface InputProps {
   onChange: (name: string, value: string) => void;
 }
 
-export default function Input({
+export function Input({
   name,
   value,
   type,
   placeholder,
   onChange,
 }: InputProps) {
-  
   const valueChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.name, event.target.value);
   };
