@@ -7,7 +7,7 @@
 }
 
 .list-item-p {
-  width: 200%;
+  width: 500px;
 }
 
 .flex-container {
@@ -18,11 +18,11 @@
 
 .check-box {
   transform: scale(1.5);
-  margin-right: 5%;
+  margin-right: 0.8rem;
 }
 
 .delete-button {
-  padding: 2%;
+  padding: 0.5em;
   background-color: #0a2ea4;
   border: none;
 }
