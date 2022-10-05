@@ -1,5 +1,5 @@
 import "./App.css";
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 import { Todo } from "./models";
 import { deleteTodo, changeTodo, addTodo, fetchTodos } from "./apis/";
@@ -10,6 +10,7 @@ function App() {
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState<Category>(Category.ALL);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const changeFilter = (check: Category): void => {
     loadTodos(check);
@@ -81,9 +82,21 @@ function App() {
     }
   };
 
+  const onFocusInput = () => {
+    inputRef.current?.focus();
+  };
+
   const onChange = (name: string, value: string) => {
     setNewTodoDescription(value);
   };
+
+  useEffect(() => {
+    const controller = new AbortController();
+    loadTodos(Category.ALL, controller.signal);
+    return () => {
+      controller.abort();
+    };
+  }, [loadTodos]);
 
   const content = loading ? (
     <h3 className="msg-text">LOADING...</h3>
@@ -94,22 +107,23 @@ function App() {
       onChangeTodo={onChangeTodo}
     ></TodoList>
   ) : !loading && todos.length === 0 && selectedFilter === Category.ALL ? (
-    <h3 className="msg-text">NO TODOS</h3>
+    <button onClick={onFocusInput} className="msg-box">
+      <p className="msg-text">
+        <b> No tasks added yet!</b> Click here to add a new task
+      </p>
+    </button>
   ) : (
     !loading &&
     todos.length === 0 &&
     selectedFilter !== Category.ALL && (
-      <h3 className="msg-text">NO {selectedFilter} TODOS</h3>
+      <button onClick={onFocusInput} className="msg-box">
+        <p className="msg-text">
+          <b> No {selectedFilter} tasks added yet!</b> Click here to add a new
+          task
+        </p>
+      </button>
     )
   );
-
-  useEffect(() => {
-    const controller = new AbortController();
-    loadTodos(Category.ALL, controller.signal);
-    return () => {
-      controller.abort();
-    };
-  }, [loadTodos]);
 
   return (
     <div className="todo-app-wrapper">
@@ -122,6 +136,7 @@ function App() {
               placeholder="E.g Learn React"
               type="text"
               name="todo"
+              inputRef={inputRef}
             />
             <input type="submit" className="add-button button" value="Add" />
           </form>
