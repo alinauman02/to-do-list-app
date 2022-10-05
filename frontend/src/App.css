@@ -1,3 +1,8 @@
+:root {
+  --sky-blue-0: #066acd;
+  --sky-blue-1: #24a0ed;
+  --sky-blue-2: #0d75ec;
+}
 * {
   margin: 0;
   padding: 0;
@@ -5,14 +10,14 @@
 }
 
 body {
-  background-color: #066acd;
+  background-color: var(--sky-blue-0);
 }
 
 .todo-app-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10rem;
+  margin: 8rem;
 }
 
 .card {
@@ -23,15 +28,15 @@ body {
 }
 
 .input-todo:hover {
-  border-color: #24a0ed;
+  border-color: var(--sky-blue-1);
 }
 
 .msg-box {
   text-align: center;
   padding: 1em 1em;
-  margin: 4rem 2rem;
+  margin: 2rem 2rem;
   border-radius: 6px;
-  border: 1px solid #24a0ed;
+  border: 1px solid var(--sky-blue-1);
   background-color: #c5e1e6;
 }
 
@@ -42,7 +47,7 @@ body {
 
 .add-button {
   padding: 0.5em 2em;
-  background-color: #0d75ec;
+  background-color: var(--sky-blue-2);
   border-color: gray;
   height: 47px;
   margin-top: 0.5rem;
@@ -50,7 +55,7 @@ body {
 }
 
 .add-button:hover {
-  background-color: #24a0ed;
+  background-color: var(--sky-blue-1);
 }
 
 .inline-block {
@@ -70,5 +75,18 @@ body {
 }
 
 .msg-text {
-  color: #0d75ec;
+  color: var(--sky-blue-2);
+}
+
+.error-box {
+  text-align: center;
+  padding: 1em 1em;
+  margin: 1rem 2rem;
+  border-radius: 6px;
+  border: 1px solid var(rgb(150, 44, 44));
+  background-color: #ce988b;
+}
+
+.error-text {
+  color: black;
 }

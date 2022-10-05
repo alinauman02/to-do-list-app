@@ -11,12 +11,15 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState<Category>(Category.ALL);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [error, setError] = useState<boolean>(false);
 
   const changeFilter = (check: Category): void => {
+    setError(false);
     loadTodos(check);
   };
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
+    setError(false);
     changeTodo(id, isDone);
     if (
       selectedFilter === Category.COMPLETED ||
@@ -52,10 +55,11 @@ function App() {
   );
 
   const onAddTodo = async (event: FormEvent<HTMLFormElement>) => {
+    setError(false);
     event.preventDefault();
     const trimmedTodoDescription: string = newTodoDescription.trim();
     if (trimmedTodoDescription.length === 0) {
-      alert("Enter valid description!");
+      setError(true);
     } else {
       try {
         const response = await addTodo(trimmedTodoDescription);
@@ -75,6 +79,7 @@ function App() {
   };
 
   const onDeleteTodo = async (id: string) => {
+    setError(false);
     const status = await deleteTodo(id);
 
     if (status) {
@@ -83,10 +88,12 @@ function App() {
   };
 
   const onFocusInput = () => {
+    setError(false);
     inputRef.current?.focus();
   };
 
   const onChange = (name: string, value: string) => {
+    setError(false);
     setNewTodoDescription(value);
   };
 
@@ -148,6 +155,13 @@ function App() {
           changeFilter={changeFilter}
         />
         {content}
+        {error && (
+          <button onClick={onFocusInput} className="msg-box error-box">
+            <p className="error-text">
+              <b> Wrong description!</b> Please enter valid task
+            </p>
+          </button>
+        )}
       </div>
     </div>
   );
