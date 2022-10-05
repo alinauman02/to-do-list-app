@@ -12,24 +12,27 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 5%;
+  margin: 10rem;
 }
 
 .card {
-  padding: 2% 3%;
-  width: 30%;
+  padding: 2em 1em;
+  width: 420px;
   background-color: white;
-  border-radius: 5%;
+  border-radius: 12px;
 }
 
 .input-todo:hover {
   border-color: #24a0ed;
 }
 
-.msg-text {
-  margin-top: 20%;
-  color: gray;
+.msg-box {
   text-align: center;
+  padding: 1em 1em;
+  margin: 4rem 2rem;
+  border-radius: 6px;
+  border: 1px solid #24a0ed;
+  background-color: #c5e1e6;
 }
 
 .button {
@@ -38,10 +41,11 @@ body {
 }
 
 .add-button {
-  padding: 3% 8%;
+  padding: 0.5em 2em;
   background-color: #0d75ec;
   border-color: gray;
-  margin: 3%;
+  height: 47px;
+  margin-top: 0.5rem;
   font-weight: bold;
 }
 
@@ -55,8 +59,16 @@ body {
 
 .todo-form {
   display: flex;
-  width: 200%;
+  width: 500px;
   vertical-align: top;
   text-align: center;
 }
 
+.msg-box:hover {
+  cursor: pointer;
+  background-color: #a3cfd8;
+}
+
+.msg-text {
+  color: #0d75ec;
+}

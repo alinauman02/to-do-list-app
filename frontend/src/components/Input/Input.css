@@ -1,6 +1,8 @@
 .input-todo {
-  width: 150%;
-  height: 120%;
-  padding: 3%;
-  margin: 3%;
+  width: 300px;
+  height: 40px;
+  padding: 0.7em;
+  margin-top: 0.8rem;
+  margin-right: 0.5em;
+  margin-left: 1em;
 }
