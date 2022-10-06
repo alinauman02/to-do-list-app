@@ -1,5 +1,6 @@
-import "./Input.css";
 import { ChangeEvent, MutableRefObject } from "react";
+
+import "./Input.css";
 
 interface InputProps {
   name: string;
