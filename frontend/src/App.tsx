@@ -156,7 +156,7 @@ function App() {
         />
         {content}
         {error && (
-          <button onClick={onFocusInput} className="msg-box error-box">
+          <button onClick={onFocusInput} className="error-box">
             <p className="error-text">
               <b> Wrong description!</b> Please enter valid task
             </p>

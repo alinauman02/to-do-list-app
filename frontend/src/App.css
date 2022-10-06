@@ -3,6 +3,7 @@
   --sky-blue-1: #24a0ed;
   --sky-blue-2: #0d75ec;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -83,8 +84,12 @@ body {
   padding: 1em 1em;
   margin: 1rem 2rem;
   border-radius: 6px;
-  border: 1px solid var(rgb(150, 44, 44));
+  border: none;
   background-color: #ce988b;
+}
+
+.error-box:hover {
+  background-color: #d1765f;
 }
 
 .error-text {
