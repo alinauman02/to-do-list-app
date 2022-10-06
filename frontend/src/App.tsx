@@ -14,7 +14,6 @@ function App() {
   const [error, setError] = useState<boolean>(false);
 
   const changeFilter = (check: Category): void => {
-    setError(false);
     loadTodos(check);
   };
 
@@ -60,6 +59,9 @@ function App() {
     const trimmedTodoDescription: string = newTodoDescription.trim();
     if (trimmedTodoDescription.length === 0) {
       setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
     } else {
       try {
         const response = await addTodo(trimmedTodoDescription);
@@ -79,16 +81,13 @@ function App() {
   };
 
   const onDeleteTodo = async (id: string) => {
-    setError(false);
     const status = await deleteTodo(id);
-
     if (status) {
       setTodos((currentTodo) => currentTodo.filter((todo) => todo.id !== id));
     }
   };
 
   const onFocusInput = () => {
-    setError(false);
     inputRef.current?.focus();
   };
 
@@ -148,13 +147,6 @@ function App() {
             <input type="submit" className="add-button button" value="Add" />
           </form>
         </div>
-        <br></br>
-        <Filters
-          categories={[Category.ALL, Category.PENDING, Category.COMPLETED]}
-          selectedFilter={selectedFilter}
-          changeFilter={changeFilter}
-        />
-        {content}
         {error && (
           <button onClick={onFocusInput} className="error-box">
             <p className="error-text">
@@ -162,6 +154,13 @@ function App() {
             </p>
           </button>
         )}
+        <br></br>
+        <Filters
+          categories={[Category.ALL, Category.PENDING, Category.COMPLETED]}
+          selectedFilter={selectedFilter}
+          changeFilter={changeFilter}
+        />
+        {content}
       </div>
     </div>
   );
