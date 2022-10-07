@@ -26,18 +26,6 @@ body {
   border-color: #24a0ed;
 }
 
-.input-todo {
-  width: 150%;
-  height: 120%;
-  padding: 3%;
-  margin: 3%;
-}
-
-.ul-todos {
-  margin-top: 20%;
-  list-style-type: none;
-}
-
 .msg-text {
   margin-top: 20%;
   color: gray;
@@ -61,41 +49,8 @@ body {
   background-color: #24a0ed;
 }
 
-.list-item {
-  padding: 2% 3%;
-  margin: 2%;
-  border-radius: 6px;
-  border: 1px solid #939697;
-  background-color: #c5e1e6;
-}
-
-.list-item-p {
-  width: 200%;
-}
-
-.flex-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .inline-block {
   display: inline-block;
-}
-
-.del-icon {
-  width: 70%;
-  height: 70%;
-}
-
-.delete-button {
-  padding: 2%;
-  background-color: #0a2ea4;
-}
-
-.check-box {
-  transform: scale(1.5);
-  margin-right: 5%;
 }
 
 .todo-form {
@@ -105,36 +60,3 @@ body {
   text-align: center;
 }
 
-.category-items {
-  display: flex;
-  margin-right: 10px;
-}
-
-.category-buttons:hover {
-  color: #066acd;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.filter-list {
-  display: flex;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  color: gray;
-  cursor: pointer;
-}
-
-.selected-filter {
-  color: #066acd;
-  border-bottom: #066acd solid;
-  font-weight: bold;
-}
-
-.category-buttons {
-  background: none;
-  color: inherit;
-  border: none;
-  font-weight: bold;
-}

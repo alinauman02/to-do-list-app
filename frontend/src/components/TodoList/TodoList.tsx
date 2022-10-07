@@ -1,7 +1,6 @@
-import React from "react";
-
-import { Todo } from "../models/todo.model";
-import TodoListItem from "./TodoListItem";
+import "./TodoList.css";
+import { Todo } from "../../models/todo.model";
+import { TodoListItem } from "../TodoListItem/TodoListItem";
 
 interface TodoListProps {
   todos: Todo[];
@@ -9,11 +8,7 @@ interface TodoListProps {
   onChangeTodo: (id: string, isDone: boolean) => void;
 }
 
-export default function TodoList({
-  todos,
-  onDeleteTodo,
-  onChangeTodo,
-}: TodoListProps) {
+export function TodoList({ todos, onDeleteTodo, onChangeTodo }: TodoListProps) {
   return (
     <div>
       <ul className="ul-todos">

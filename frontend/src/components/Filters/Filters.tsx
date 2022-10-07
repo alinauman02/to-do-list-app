@@ -1,3 +1,5 @@
+import "./Filters.css";
+
 export enum Category {
   ALL = "ALL",
   PENDING = "PENDING",
@@ -10,7 +12,7 @@ interface FilterProps {
   changeFilter: (filter: Category) => void;
 }
 
-export default function Filters({
+export function Filters({
   selectedFilter,
   categories,
   changeFilter,
