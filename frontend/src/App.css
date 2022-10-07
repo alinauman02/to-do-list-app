@@ -32,17 +32,6 @@ body {
   border-color: var(--sky-blue-1);
 }
 
-.msg-box {
-  margin-top: 20%;
-  color: gray;
-  text-align: center;
-  padding: 1em 5em;
-  margin: 2rem 1rem;
-  border-radius: 6px;
-  border: none;
-  background-color: #c5e1e6;
-}
-
 .add-button {
   border-radius: 7px;
   color: white;
@@ -67,30 +56,4 @@ body {
   width: 500px;
   vertical-align: top;
   text-align: center;
-}
-
-.msg-box:hover {
-  cursor: pointer;
-  background-color: #a3cfd8;
-}
-
-.msg-text {
-  color: var(--sky-blue-2);
-}
-
-.error-box {
-  text-align: center;
-  padding: 1em 6em;
-  margin: 1rem 1rem 2rem 1rem;
-  border-radius: 6px;
-  border: none;
-  background-color: #f3cac0;
-}
-
-.error-box:hover {
-  background-color: #dba294;
-}
-
-.error-text {
-  color: black;
 }
