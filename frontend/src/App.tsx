@@ -14,6 +14,8 @@ function App() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<boolean>(false);
 
+  document.title = "Todo App";
+
   const changeFilter = (check: Category): void => {
     loadTodos(check);
   };
@@ -115,11 +117,15 @@ function App() {
     !loading &&
     todos.length === 0 &&
     selectedFilter !== Category.ALL && (
-      <Alert
-        filter={selectedFilter}
-        onFocusInput={onFocusInput}
-        type="message"
-      />
+      <Alert onClick={onFocusInput} type="message">
+        <span>
+          <b>
+            No {selectedFilter === "PENDING" ? "Pending" : "Completed"} Todo
+            added!
+          </b>
+          click here to enter new todo
+        </span>
+      </Alert>
     )
   );
 
@@ -147,11 +153,11 @@ function App() {
           </form>
         </div>
         {error && (
-          <Alert
-            type="error"
-            onFocusInput={onFocusInput}
-            filter={selectedFilter}
-          />
+          <Alert type="error">
+            <span>
+              <b>Invalid Description!</b> Please Enter valid Description
+            </span>
+          </Alert>
         )}
         <br></br>
         <Filters
