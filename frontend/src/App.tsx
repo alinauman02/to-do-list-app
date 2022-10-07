@@ -4,6 +4,7 @@ import "./App.css";
 import { Todo } from "./models";
 import { deleteTodo, changeTodo, addTodo, fetchTodos } from "./apis/";
 import { Filters, Input, TodoList, Category } from "./components";
+import Alert from "./components/Alert/Alert";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -107,19 +108,18 @@ function App() {
   ) : !loading && todos.length === 0 && selectedFilter === Category.ALL ? (
     <button onClick={onFocusInput} className="msg-box">
       <p className="msg-text">
-        <b> No tasks added yet!</b> Click here to add a new task
+        <b> No todos added yet!</b> Click here to add a new todo
       </p>
     </button>
   ) : (
     !loading &&
     todos.length === 0 &&
     selectedFilter !== Category.ALL && (
-      <button onClick={onFocusInput} className="msg-box">
-        <p className="msg-text">
-          <b> No {selectedFilter} tasks added yet!</b> Click here to add a new
-          task
-        </p>
-      </button>
+      <Alert
+        filter={selectedFilter}
+        onFocusInput={onFocusInput}
+        type="message"
+      />
     )
   );
 
@@ -130,7 +130,6 @@ function App() {
       controller.abort();
     };
   }, [loadTodos]);
-
   return (
     <div className="todo-app-wrapper">
       <div className=" card">
@@ -148,11 +147,11 @@ function App() {
           </form>
         </div>
         {error && (
-          <button onClick={onFocusInput} className="error-box">
-            <p className="error-text">
-              <b> Wrong description!</b> Please enter valid task
-            </p>
-          </button>
+          <Alert
+            type="error"
+            onFocusInput={onFocusInput}
+            filter={selectedFilter}
+          />
         )}
         <br></br>
         <Filters
