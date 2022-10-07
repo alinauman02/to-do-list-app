@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, MutableRefObject } from "react";
 
 import "./Input.css";
 
@@ -8,6 +8,7 @@ interface InputProps {
   type: "number" | "text" | "email" | "password";
   placeholder: string;
   onChange: (name: string, value: string) => void;
+  inputRef: MutableRefObject<HTMLInputElement | null>;
 }
 
 export function Input({
@@ -15,6 +16,7 @@ export function Input({
   value,
   type,
   placeholder,
+  inputRef,
   onChange,
 }: InputProps) {
   const valueChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +31,7 @@ export function Input({
       type={type}
       placeholder={placeholder}
       onChange={valueChangeHandler}
+      ref={inputRef}
     />
   );
 }
