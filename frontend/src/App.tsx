@@ -1,6 +1,6 @@
-import "./App.css";
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useRef, useEffect, useState } from "react";
 
+import "./App.css";
 import { Todo } from "./models";
 import { deleteTodo, changeTodo, addTodo, fetchTodos } from "./apis/";
 import { Filters, Input, TodoList, Category } from "./components";
@@ -96,14 +96,6 @@ function App() {
     setNewTodoDescription(value);
   };
 
-  useEffect(() => {
-    const controller = new AbortController();
-    loadTodos(Category.ALL, controller.signal);
-    return () => {
-      controller.abort();
-    };
-  }, [loadTodos]);
-
   const content = loading ? (
     <h3 className="msg-text">LOADING...</h3>
   ) : !loading && todos.length !== 0 ? (
@@ -130,6 +122,14 @@ function App() {
       </button>
     )
   );
+
+  useEffect(() => {
+    const controller = new AbortController();
+    loadTodos(Category.ALL, controller.signal);
+    return () => {
+      controller.abort();
+    };
+  }, [loadTodos]);
 
   return (
     <div className="todo-app-wrapper">

@@ -1,4 +1,5 @@
 import "./Filters.css";
+
 export enum Category {
   ALL = "ALL",
   PENDING = "PENDING",

@@ -1,5 +1,6 @@
-import "./TodoListItem.css";
 import { ChangeEvent } from "react";
+
+import "./TodoListItem.css";
 import { Todo } from "../../models/todo.model";
 import { IconDelete } from "../Icons/IconDelete";
 
