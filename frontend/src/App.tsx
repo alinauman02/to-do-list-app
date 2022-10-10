@@ -108,27 +108,21 @@ function App() {
       onDeleteTodo={onDeleteTodo}
       onChangeTodo={onChangeTodo}
     ></TodoList>
-  ) : !loading && todos.length === 0 && selectedFilter === Category.ALL ? (
+  ) : (
     <Alert onClick={onFocusInput} type="message">
       <span>
-        <b>No todo added! </b>
-        click here to enter new todo
+        <b>
+          No{" "}
+          {selectedFilter === "ALL"
+            ? ""
+            : selectedFilter === "COMPLETED"
+            ? "completed"
+            : "pending"}{" "}
+          todo added!{" "}
+        </b>
+        Click here to enter new todo
       </span>
     </Alert>
-  ) : (
-    !loading &&
-    todos.length === 0 &&
-    selectedFilter !== Category.ALL && (
-      <Alert onClick={onFocusInput} type="message">
-        <span>
-          <b>
-            No {selectedFilter === "PENDING" ? "pending" : "completed"} Todo
-            added!{" "}
-          </b>
-          click here to enter new todo
-        </span>
-      </Alert>
-    )
   );
 
   useEffect(() => {
