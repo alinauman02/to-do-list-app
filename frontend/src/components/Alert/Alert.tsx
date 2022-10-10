@@ -7,7 +7,7 @@ interface AlertProps {
   children: ReactElement;
 }
 
-export default function Alert({ type, onClick, children }: AlertProps) {
+export function Alert({ type, onClick, children }: AlertProps) {
   const classButton = type === "error" ? "error-box" : "msg-box";
   return (
     <button onClick={onClick} className={classButton}>

@@ -3,8 +3,7 @@ import { FormEvent, useCallback, useRef, useEffect, useState } from "react";
 import "./App.css";
 import { Todo } from "./models";
 import { deleteTodo, changeTodo, addTodo, fetchTodos } from "./apis/";
-import { Filters, Input, TodoList, Category } from "./components";
-import Alert from "./components/Alert/Alert";
+import { Filters, Input, TodoList, Category, Alert } from "./components";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);

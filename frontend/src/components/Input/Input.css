@@ -5,14 +5,17 @@
   margin-top: 0.8rem;
   margin-left: 1rem;
   margin-right: 1rem;
+  outline: none;
+  border: 1px solid gray;
+  border-radius: 6px;
 }
 
 .input-todo:hover {
-  border-color: var(--sky-blue-1);
+  border: 1px solid var(--sky-blue-1);
 }
 
 .input-todo:focus-visible,
 .input-todo:focus {
-  border-color: #066acd;
-  outline: #066acd;
+  border: 2px solid var(--sky-blue-1);
+  outline: var(--sky-blue-1);
 }
