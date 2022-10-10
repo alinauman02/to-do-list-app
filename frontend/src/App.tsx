@@ -13,7 +13,9 @@ function App() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<boolean>(false);
 
-  document.title = "Todo App";
+  useEffect(() => {
+    document.title = "Todo App";
+  }, []);
 
   const changeFilter = (check: Category): void => {
     loadTodos(check);
@@ -107,11 +109,12 @@ function App() {
       onChangeTodo={onChangeTodo}
     ></TodoList>
   ) : !loading && todos.length === 0 && selectedFilter === Category.ALL ? (
-    <button onClick={onFocusInput} className="msg-box">
-      <p className="msg-text">
-        <b> No todos added yet!</b> Click here to add a new todo
-      </p>
-    </button>
+    <Alert onClick={onFocusInput} type="message">
+      <span>
+        <b>No todo added! </b>
+        click here to enter new todo
+      </span>
+    </Alert>
   ) : (
     !loading &&
     todos.length === 0 &&
@@ -119,8 +122,8 @@ function App() {
       <Alert onClick={onFocusInput} type="message">
         <span>
           <b>
-            No {selectedFilter === "PENDING" ? "Pending" : "Completed"} Todo
-            added!
+            No {selectedFilter === "PENDING" ? "pending" : "completed"} Todo
+            added!{" "}
           </b>
           click here to enter new todo
         </span>
