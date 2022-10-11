@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useRef, useEffect, useState } from "react";
+import { FormEvent, useRef, useEffect, useState } from "react";
 
 import "./App.css";
 import { Todo } from "./models";
@@ -17,8 +17,26 @@ function App() {
     document.title = "Todo App";
   }, []);
 
+  useEffect(() => {
+    const loadTodos = async (signal?: AbortSignal) => {
+      try {
+        const controller = new AbortController();
+        const tempTodos: Todo[] = await fetchTodos(selectedFilter, signal);
+        setTodos(tempTodos);
+        setLoading(false);
+        return () => {
+          controller.abort();
+        };
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+    loadTodos();
+  }, [selectedFilter]);
+
   const changeFilter = (check: Category): void => {
-    loadTodos(check);
+    setSelectedFilter(check);
   };
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
@@ -41,21 +59,6 @@ function App() {
       });
     }
   };
-
-  const loadTodos = useCallback(
-    async (check?: Category, signal?: AbortSignal) => {
-      try {
-        const tempTodos: Todo[] = await fetchTodos(check, signal);
-        setTodos(tempTodos);
-        setLoading(false);
-        if (check) setSelectedFilter(check);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    },
-    []
-  );
 
   const onAddTodo = async (event: FormEvent<HTMLFormElement>) => {
     setError(false);
@@ -125,13 +128,6 @@ function App() {
     </Alert>
   );
 
-  useEffect(() => {
-    const controller = new AbortController();
-    loadTodos(Category.ALL, controller.signal);
-    return () => {
-      controller.abort();
-    };
-  }, [loadTodos]);
   return (
     <div className="todo-app-wrapper">
       <div className=" card">
