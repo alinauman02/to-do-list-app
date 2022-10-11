@@ -19,7 +19,7 @@ export function Filters({
 }: FilterProps) {
   return (
     <ul className="filter-list">
-      {categories.map((item: Filter) => {
+      {categories.map((item) => {
         const filterStyle =
           selectedFilter === item
             ? "filter-items selected-filter"
