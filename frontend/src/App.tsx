@@ -3,48 +3,49 @@ import { FormEvent, useRef, useEffect, useState } from "react";
 import "./App.css";
 import { Todo } from "./models";
 import { deleteTodo, changeTodo, addTodo, fetchTodos } from "./apis/";
-import { Filters, Input, TodoList, Category, Alert } from "./components";
+import { Filters, Input, TodoList, Filter, Alert } from "./components";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoDescription, setNewTodoDescription] = useState("");
   const [loading, setLoading] = useState(true);
-  const [selectedFilter, setSelectedFilter] = useState<Category>(Category.ALL);
+  const [selectedFilter, setSelectedFilter] = useState(Filter.ALL);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     document.title = "Todo App";
   }, []);
 
   useEffect(() => {
-    const loadTodos = async (signal?: AbortSignal) => {
+    const loadTodos = async (signal: AbortSignal) => {
       try {
-        const controller = new AbortController();
         const tempTodos: Todo[] = await fetchTodos(selectedFilter, signal);
         setTodos(tempTodos);
         setLoading(false);
-        return () => {
-          controller.abort();
-        };
       } catch (error) {
-        console.log(error);
-        setLoading(false);
+        if (error instanceof DOMException) {
+          if (error.name !== "AbortError") console.log(error);
+        }
       }
     };
-    loadTodos();
+    const controller = new AbortController();
+    loadTodos(controller.signal);
+    return () => {
+      controller.abort();
+    };
   }, [selectedFilter]);
 
-  const changeFilter = (check: Category): void => {
-    setSelectedFilter(check);
+  const changeFilter = (filter: Filter): void => {
+    setSelectedFilter(filter);
   };
 
   const onChangeTodo = async (id: string, isDone: boolean) => {
-    setError(false);
+    setError("");
     changeTodo(id, isDone);
     if (
-      selectedFilter === Category.COMPLETED ||
-      selectedFilter === Category.PENDING
+      selectedFilter === Filter.COMPLETED ||
+      selectedFilter === Filter.PENDING
     )
       setTodos((currentTodo) => currentTodo.filter((todo) => todo.id !== id));
     else {
@@ -61,13 +62,13 @@ function App() {
   };
 
   const onAddTodo = async (event: FormEvent<HTMLFormElement>) => {
-    setError(false);
+    setError("");
     event.preventDefault();
     const trimmedTodoDescription: string = newTodoDescription.trim();
     if (trimmedTodoDescription.length === 0) {
-      setError(true);
+      setError("error");
       setTimeout(() => {
-        setError(false);
+        setError("");
       }, 3000);
     } else {
       try {
@@ -77,9 +78,9 @@ function App() {
           throw new Error("Something Went Wrong!");
         }
         const newTodo: Todo = await response.json();
-        if (selectedFilter !== Category.COMPLETED)
+        if (selectedFilter !== Filter.COMPLETED)
           setTodos((currentTodos) => [...currentTodos, newTodo]);
-        else changeFilter(Category.ALL);
+        else changeFilter(Filter.ALL);
       } catch (error) {
         console.log(error);
       }
@@ -99,7 +100,7 @@ function App() {
   };
 
   const onChange = (name: string, value: string) => {
-    setError(false);
+    setError("");
     setNewTodoDescription(value);
   };
 
@@ -144,7 +145,7 @@ function App() {
             <input type="submit" className="add-button button" value="Add" />
           </form>
         </div>
-        {error && (
+        {error !== "" && (
           <Alert type="error">
             <span>
               <b>Invalid Description!</b> Please Enter valid Description
@@ -153,7 +154,7 @@ function App() {
         )}
         <br></br>
         <Filters
-          categories={[Category.ALL, Category.PENDING, Category.COMPLETED]}
+          categories={[Filter.ALL, Filter.PENDING, Filter.COMPLETED]}
           selectedFilter={selectedFilter}
           changeFilter={changeFilter}
         />
