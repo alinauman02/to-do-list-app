@@ -1,6 +1,6 @@
 import "./TodoList.css";
-import { Todo } from "../../models/todo.model";
-import { TodoListItem } from "../TodoListItem/TodoListItem";
+import { Todo } from "../../models/";
+import { TodoListItem } from "../";
 
 interface TodoListProps {
   todos: Todo[];
@@ -12,16 +12,12 @@ export function TodoList({ todos, onDeleteTodo, onChangeTodo }: TodoListProps) {
   return (
     <div>
       <ul className="ul-todos">
-        {todos.map((todo: Todo) => (
+        {todos.map((todo) => (
           <TodoListItem
             onChangeTodo={onChangeTodo}
             onDeleteTodo={onDeleteTodo}
             key={todo.id}
-            todo={{
-              description: todo.description,
-              id: todo.id,
-              isDone: todo.isDone,
-            }}
+            todo={todo}
           />
         ))}
       </ul>

@@ -20,17 +20,12 @@ export function Filters({
   return (
     <ul className="filter-list">
       {categories.map((item: Filter) => {
-        return selectedFilter === item ? (
-          <li key={item} className="filter-items selected-filter">
-            <button
-              className="filter-buttons"
-              onClick={() => changeFilter(item)}
-            >
-              {item}
-            </button>
-          </li>
-        ) : (
-          <li key={item} className="filter-items">
+        const filterStyle =
+          selectedFilter === item
+            ? "filter-items selected-filter"
+            : "filter-items";
+        return (
+          <li key={item} className={filterStyle}>
             <button
               className="filter-buttons"
               onClick={() => changeFilter(item)}
