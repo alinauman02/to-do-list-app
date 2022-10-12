@@ -1,15 +1,15 @@
 import "./Filters.css";
 
-export enum Category {
+export enum Filter {
   ALL = "ALL",
   PENDING = "PENDING",
   COMPLETED = "COMPLETED",
 }
 
 interface FilterProps {
-  categories: Category[];
-  selectedFilter: Category;
-  changeFilter: (filter: Category) => void;
+  categories: Filter[];
+  selectedFilter: Filter;
+  changeFilter: (filter: Filter) => void;
 }
 
 export function Filters({
@@ -19,20 +19,15 @@ export function Filters({
 }: FilterProps) {
   return (
     <ul className="filter-list">
-      {categories.map((item: Category) => {
-        return selectedFilter === item ? (
-          <li key={item} className="category-items selected-filter">
+      {categories.map((item) => {
+        const filterStyle =
+          selectedFilter === item
+            ? "filter-items selected-filter"
+            : "filter-items";
+        return (
+          <li key={item} className={filterStyle}>
             <button
-              className="category-buttons"
-              onClick={() => changeFilter(item)}
-            >
-              {item}
-            </button>
-          </li>
-        ) : (
-          <li key={item} className="category-items">
-            <button
-              className="category-buttons"
+              className="filter-buttons"
               onClick={() => changeFilter(item)}
             >
               {item}

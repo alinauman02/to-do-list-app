@@ -53,3 +53,10 @@ body {
   vertical-align: top;
   text-align: center;
 }
+
+.msg-text {
+  color: blue;
+  text-align: center;
+  padding: 1em 5em;
+  margin: 2rem 1rem;
+}

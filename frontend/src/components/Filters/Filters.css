@@ -1,9 +1,9 @@
-.category-items {
+.filter-items {
   display: flex;
   margin-right: 10px;
 }
 
-.category-buttons:hover {
+.filter-buttons:hover {
   color: var(--sky-blue-0);
   font-weight: bold;
   cursor: pointer;
@@ -26,7 +26,7 @@
   font-weight: bold;
 }
 
-.category-buttons {
+.filter-buttons {
   background: none;
   color: inherit;
   border: none;

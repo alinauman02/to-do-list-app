@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 
 import "./TodoListItem.css";
-import { Todo } from "../../models/todo.model";
+import { Todo } from "../../models/";
 import { IconDelete } from "../Icons/IconDelete";
 
 interface TodoListItemProps {
