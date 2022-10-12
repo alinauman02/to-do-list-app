@@ -4,7 +4,7 @@
 }
 
 .category-buttons:hover {
-  color: #066acd;
+  color: var(--sky-blue-0);
   font-weight: bold;
   cursor: pointer;
 }
@@ -12,16 +12,17 @@
 .filter-list {
   display: flex;
   list-style-type: none;
-  margin: 0;
+
   padding: 0;
   overflow: hidden;
   color: gray;
   cursor: pointer;
+  margin-left: 1rem;
 }
 
 .selected-filter {
-  color: #066acd;
-  border-bottom: #066acd solid;
+  color: var(--sky-blue-0);
+  border-bottom: var(--sky-blue-2) solid;
   font-weight: bold;
 }
 

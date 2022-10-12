@@ -1,3 +1,9 @@
+:root {
+  --sky-blue-0: #066acd;
+  --sky-blue-1: #24a0ed;
+  --sky-blue-2: #0d75ec;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,48 +11,36 @@
 }
 
 body {
-  background-color: #066acd;
+  background-color: var(--sky-blue-0);
 }
 
 .todo-app-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 5%;
+  margin: 8rem;
 }
 
 .card {
-  padding: 2% 3%;
-  width: 30%;
+  padding: 2em 1em;
+  width: 420px;
   background-color: white;
-  border-radius: 5%;
-}
-
-.input-todo:hover {
-  border-color: #24a0ed;
-}
-
-.msg-text {
-  margin-top: 20%;
-  color: gray;
-  text-align: center;
-}
-
-.button {
-  border-radius: 10%;
-  color: white;
+  border-radius: 12px;
 }
 
 .add-button {
-  padding: 3% 8%;
-  background-color: #0d75ec;
-  border-color: gray;
-  margin: 3%;
+  border-radius: 7px;
+  color: white;
+  padding: 0.5em 2.3em;
+  background-color: var(--sky-blue-2);
+  border: none;
+  height: 45px;
+  margin-top: 0.7rem;
   font-weight: bold;
 }
 
 .add-button:hover {
-  background-color: #24a0ed;
+  background-color: var(--sky-blue-1);
 }
 
 .inline-block {
@@ -55,8 +49,7 @@ body {
 
 .todo-form {
   display: flex;
-  width: 200%;
+  width: 500px;
   vertical-align: top;
   text-align: center;
 }
-

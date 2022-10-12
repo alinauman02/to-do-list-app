@@ -1,6 +1,21 @@
 .input-todo {
-  width: 150%;
-  height: 120%;
-  padding: 3%;
-  margin: 3%;
+  width: 256px;
+  height: 43px;
+  padding: 0.7em;
+  margin-top: 0.8rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  outline: none;
+  border: 1px solid gray;
+  border-radius: 6px;
+}
+
+.input-todo:hover {
+  border: 1px solid var(--sky-blue-1);
+}
+
+.input-todo:focus-visible,
+.input-todo:focus {
+  border: 2px solid var(--sky-blue-1);
+  outline: var(--sky-blue-1);
 }
